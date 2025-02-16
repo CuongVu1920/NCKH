@@ -26,6 +26,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Danh sách sinh viên được chấp nhận</title>
     <link rel="stylesheet" href="../assests/css/reset.css">
+    
     <link rel="stylesheet" href="../assest/css/teacher_non.css">
 </head>
 <style>
