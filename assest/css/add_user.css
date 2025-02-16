@@ -1,0 +1,141 @@
+/* Reset mặc định */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+
+  /* Common */
+  
+a {
+    text-decoration: none;
+}
+  
+.container {
+    width: 1320px;
+    max-width: calc(100% - 48px);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background-color: #a8d0e6;
+    padding: 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow-y: auto;
+}
+
+.sidebar-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.sidebar-menu {
+    list-style: none;
+}
+
+.menu-item {
+    margin-bottom: 10px;
+}
+
+.menu-link {
+    text-decoration: none;
+    color: #333;
+    font-size: 16px;
+    display: block;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.menu-link:hover {
+    background-color: #87bdd8;
+}
+
+/* Nội dung chính */
+.content {
+    margin-left: 270px;
+    padding: 20px;
+}
+
+.content-title {
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+/* Form */
+/* Chỉnh layout của form */
+.user-form {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    max-width: 1100px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-left: -240px;
+    justify-content: space-between;
+}
+
+/* Định dạng từng nhóm input */
+.form-group {
+    flex: 1 1 calc(50% - 10px); /* Chia đôi, trừ khoảng cách */
+    min-width: 300px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-group input, 
+.form-group select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+
+
+/* Đảm bảo nút bấm rộng toàn bộ */
+.btn-submit {
+    width: 100%;
+    margin-top: 15px;
+}
+
+.user-form {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: space-between;
+    max-width: 100%;
+}
+
+.form-group {
+    flex: 1 1 calc(33.33% - 10px); /* Chia 3 cột trên hàng ngang */
+    min-width: 250px;
+}
+
+@media screen and (max-width: 1024px) {
+    .form-group {
+        flex: 1 1 calc(50% - 10px); /* Chia 2 cột khi màn hình nhỏ */
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .form-group {
+        flex: 1 1 100%; /* 1 cột trên mobile */
+    }
+}
+
+

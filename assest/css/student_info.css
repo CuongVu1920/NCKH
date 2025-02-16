@@ -1,0 +1,100 @@
+/* Reset mặc định */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+
+  /* Common */
+  
+a {
+    text-decoration: none;
+}
+  
+.container {
+    width: 1320px;
+    max-width: calc(100% - 48px);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background-color: #a8d0e6;
+    padding: 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow-y: auto;
+}
+
+.sidebar-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.sidebar-menu {
+    list-style: none;
+}
+
+.menu-item {
+    margin-bottom: 10px;
+}
+
+.menu-link {
+    text-decoration: none;
+    color: #333;
+    font-size: 16px;
+    display: block;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.menu-link:hover {
+    background-color: #87bdd8;
+}
+
+/* Nội dung chính */
+.content { 
+    margin-left: 70px;
+    padding: 20px;
+    width: 100%; 
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    border: 2px solid #2A9DF4; /* Viền xanh nước biển */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.card-title {
+    color: #1D7DC4; /* Xanh đậm */
+    font-size: 22px;
+    font-weight: bold;
+}
+
+/* Thông tin sinh viên */
+
+
+
+.info-item {
+    font-size: 16px;
+    margin: 8px 0;
+    padding: 5px 0;
+}
+
+.info-label {
+    font-weight: bold;
+    color: #1D7DC4; /* Xanh đậm */
+}
+
+
+
