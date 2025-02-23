@@ -65,6 +65,12 @@
                     case "process_approval":
                         include('process_approval.php');
                         break;
+                    case "mocTienDo":
+                        include('watch_mocTienDo.php');
+                        break;
+                    case "chamDiem":
+                        include('chamDiem.php');
+                        break;
                     case "logout":
                         session_destroy();
                         session_unset();

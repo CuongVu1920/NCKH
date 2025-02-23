@@ -36,7 +36,7 @@
             <li class="menu-item"><a href="student_dashboard.php?page_layout=student_info" class="menu-link">Thông tin</a></li>
             <li class="menu-item"><a href="student_dashboard.php?page_layout=choice_teacher"class="menu-link">Danh sách giảng viên</a></li>
             <li class="menu-item"><a href="student_dashboard.php?page_layout=list_topic" class="menu-link">Danh sách đề tài</a></li>
-            <li class="menu-item"><a href="student_dashboard.php?page_layout=progress_milestones" class="menu-link">Mốc tiến độ</a></li>
+            <li class="menu-item"><a href="student_dashboard.php?page_layout=mocTienDo" class="menu-link">Mốc tiến độ</a></li>
             <li class="menu-item"><a href="../admin/admin_dashboard.php?page_layout=logout" class="menu-link">Đăng xuất</a></li>
         </ul>
     </nav>
@@ -67,6 +67,9 @@
                       break;
                     case "delete_user_process":
                         include('delete_user_process.php');
+                        break;
+                    case "mocTienDo":
+                        include('mocTienDo.php');
                         break;
                     case "logout":
                         session_destroy();

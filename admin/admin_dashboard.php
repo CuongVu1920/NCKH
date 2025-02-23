@@ -21,6 +21,7 @@
         <li class="menu-item"><a href="admin_dashboard.php?page_layout=add_user" class="menu-link">Thêm người dùng</a></li>
         <li class="menu-item"><a href="admin_dashboard.php?page_layout=teacher_list" class="menu-link">Danh sách giảng viên</a></li>
         <li class="menu-item"><a href="admin_dashboard.php?page_layout=student_list" class="menu-link">Danh sách sinh viên</a></li>
+        <li class="menu-item"><a href="admin_dashboard.php?page_layout=mocTienDo_list" class="menu-link">Danh sách mốc tiến độ</a></li>
         <li class="menu-item"><a href="admin_dashboard.php?page_layout=logout" class="menu-link">Đăng xuất</a></li>
       </ul>
     </nav>
@@ -67,6 +68,12 @@
             break;
           case "delete_user_process":
             include('delete_user_process.php');
+            break;
+          case "mocTienDo_list":
+            include('mocTienDo_list.php');
+            break;
+          case "mocTienDo":
+            include('mocTienDo.php');
             break;
           case "logout":
             session_destroy();

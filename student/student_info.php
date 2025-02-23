@@ -13,7 +13,7 @@ $result = mysqli_query($conn, $sql);
 $student = mysqli_fetch_assoc($result);
 
 // Truy vấn lấy thông tin giảng viên hướng dẫn
-$sql_advisor = "SELECT nguoidung.ho_ten, nguoidung.email, nguoidung.so_dien_thoai 
+$sql_advisor = "SELECT nguoidung.ho_ten, nguoidung.email, nguoidung.so_dien_thoai , huongdan.id_giangvien
                 FROM huongdan 
                 INNER JOIN nguoidung ON huongdan.id_giangvien = nguoidung.id
                 WHERE huongdan.id_sinhvien = '$student_id' 
@@ -21,13 +21,16 @@ $sql_advisor = "SELECT nguoidung.ho_ten, nguoidung.email, nguoidung.so_dien_thoa
 
 $result_advisor = mysqli_query($conn, $sql_advisor);
 $advisor = mysqli_fetch_assoc($result_advisor);
+$id_giangvien = $advisor['id_giangvien'] ?? null;
 
 // Truy vấn lấy thông tin đề tài của sinh viên
-$sql_topic = "SELECT ten_de_tai FROM chondetai 
+$sql_topic = "SELECT detai_giangvien.ten_de_tai, detai_giangvien.mo_ta FROM chondetai 
               LEFT JOIN detai_giangvien ON chondetai.id_detai = detai_giangvien.id
               WHERE chondetai.id_sinhvien = '$student_id' AND chondetai.trang_thai = 'dong_y'";
 $result_topic = mysqli_query($conn, $sql_topic);
-$topic_name = mysqli_fetch_assoc($result_topic)['ten_de_tai'] ?? 'Chưa có đề tài';
+$topic = mysqli_fetch_assoc($result_topic);
+$topic_name = $topic['ten_de_tai'] ?? 'Chưa có đề tài';
+
 ?>
 
 <!DOCTYPE html>
