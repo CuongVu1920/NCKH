@@ -13,15 +13,12 @@ $result = mysqli_query($conn, $sql);
 $student = mysqli_fetch_assoc($result);
 
 // Truy vấn lấy thông tin giảng viên hướng dẫn
-$sql_advisor = "SELECT nguoidung.ho_ten, nguoidung.email, nguoidung.so_dien_thoai , huongdan.id_giangvien
+$sql_advisor = "SELECT nguoidung.ho_ten, nguoidung.email, nguoidung.so_dien_thoai
                 FROM huongdan 
                 INNER JOIN nguoidung ON huongdan.id_giangvien = nguoidung.id
-                WHERE huongdan.id_sinhvien = '$student_id' 
-                AND huongdan.trang_thai = 'dong_y'";
-
+                WHERE huongdan.id_sinhvien = '$student_id'"; // Không cần điều kiện trạng thái
 $result_advisor = mysqli_query($conn, $sql_advisor);
 $advisor = mysqli_fetch_assoc($result_advisor);
-$id_giangvien = $advisor['id_giangvien'] ?? null;
 
 // Truy vấn lấy thông tin đề tài của sinh viên
 $sql_topic = "SELECT detai_giangvien.ten_de_tai, detai_giangvien.mo_ta FROM chondetai 
@@ -30,7 +27,6 @@ $sql_topic = "SELECT detai_giangvien.ten_de_tai, detai_giangvien.mo_ta FROM chon
 $result_topic = mysqli_query($conn, $sql_topic);
 $topic = mysqli_fetch_assoc($result_topic);
 $topic_name = $topic['ten_de_tai'] ?? 'Chưa có đề tài';
-
 ?>
 
 <!DOCTYPE html>

@@ -12,6 +12,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id']) && isset($_POST
     $action = $_POST['action'];
     $teacher_id = $_SESSION['nguoidung']['id'];
 
+    // Lấy học kỳ hiện tại từ session hoặc cách khác
+    $id_hocky = $_SESSION['id_hocky'];  // Ví dụ: học kỳ lấy từ session
+
     // Kiểm tra đề tài có tồn tại không
     $check_sql = "SELECT id_detai, id_sinhvien FROM chondetai WHERE id = ?";
     $stmt = $conn->prepare($check_sql);
@@ -31,16 +34,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id']) && isset($_POST
 
     if ($action === 'approve') {
         // Kiểm tra số lượng sinh viên đã được chấp nhận của giảng viên
-        $check_count_sql = "SELECT COUNT(*) AS total FROM huongdan WHERE id_giangvien = ? AND trang_thai = 'dong_y'";
+        $check_count_sql = "SELECT COUNT(*) AS total FROM huongdan WHERE id_giangvien = ? AND id_hocky = ?";
         $stmt = $conn->prepare($check_count_sql);
-        $stmt->bind_param("i", $teacher_id);
+        $stmt->bind_param("ii", $teacher_id, $id_hocky);
         $stmt->execute();
         $count_result = $stmt->get_result();
         $count_row = $count_result->fetch_assoc();
         $stmt->close();
 
         if ($count_row['total'] >= 5) {
-            echo json_encode(["status" => "error", "message" => "Bạn chỉ có thể chấp nhận tối đa 5 sinh viên."]);
+            echo json_encode(["status" => "error", "message" => "Bạn chỉ có thể chấp nhận tối đa 5 sinh viên trong học kỳ này."]);
             exit();
         }
 
@@ -58,10 +61,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id']) && isset($_POST
         $stmt->execute();
         $stmt->close();
 
-        // Thêm vào bảng huongdan
-        $insert_huongdan_sql = "INSERT INTO huongdan (id_giangvien, id_sinhvien, trang_thai) VALUES (?, ?, 'dong_y')";
+        // Thêm vào bảng huongdan với id_hocky
+        $insert_huongdan_sql = "INSERT INTO huongdan (id_giangvien, id_sinhvien, id_hocky) VALUES (?, ?, ?)";
         $stmt = $conn->prepare($insert_huongdan_sql);
-        $stmt->bind_param("ii", $teacher_id, $id_sinhvien);
+        $stmt->bind_param("iii", $teacher_id, $id_sinhvien, $id_hocky);
         $stmt->execute();
         $stmt->close();
 

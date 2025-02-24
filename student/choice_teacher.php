@@ -4,26 +4,32 @@ include('connect.php');
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
+
+// Lấy id sinh viên từ session
+$id_sinhvien = $_SESSION['nguoidung']['id']; 
+
+// Lấy chuyên ngành của sinh viên
+$sql_sinhvien = "SELECT id_chuyennganh FROM nguoidung WHERE id = $id_sinhvien";
+$result_sinhvien = mysqli_query($conn, $sql_sinhvien);
+$row_sinhvien = mysqli_fetch_assoc($result_sinhvien);
+$id_chuyennganh = $row_sinhvien['id_chuyennganh'];
+
 // Kiểm tra nếu sinh viên đã chọn giảng viên trước đó
-$id_sinhvien = $_SESSION['nguoidung']['id']; // Lấy id sinh viên từ session
+$sql_check = "SELECT id FROM huongdan WHERE id_sinhvien = $id_sinhvien";
+$result_check = mysqli_query($conn, $sql_check);
 
-$sql_check = "SELECT id FROM huongdan WHERE id_sinhvien = ?";
-$stmt = $conn->prepare($sql_check);
-$stmt->bind_param("i", $id_sinhvien);
-$stmt->execute();
-$stmt->store_result();
-
-if ($stmt->num_rows > 0) {
+if (mysqli_num_rows($result_check) > 0) {
     // Nếu đã chọn giảng viên, hiển thị thông báo
     echo "<script>alert('Bạn đã có giảng viên hướng dẫn'); window.location.href = 'student_dashboard.php?page_layout=student_info';</script>";
     exit();
 }
-$sql = "SELECT nguoidung.id, nguoidung.ma_so_nguoidung, nguoidung.ho_ten, nguoidung.email, nguoidung.so_dien_thoai, chuyennganh.ten_chuyennganh 
-            FROM nguoidung 
-            LEFT JOIN chuyennganh ON nguoidung.id_chuyennganh = chuyennganh.id
-            WHERE nguoidung.vaitro = 'giangvien'";
 
-$result = $conn->query($sql);
+// Lấy danh sách giảng viên trong cùng chuyên ngành
+$sql = "SELECT nguoidung.id, nguoidung.ma_so_nguoidung, nguoidung.ho_ten, nguoidung.email, nguoidung.so_dien_thoai, chuyennganh.ten_chuyennganh 
+        FROM nguoidung 
+        LEFT JOIN chuyennganh ON nguoidung.id_chuyennganh = chuyennganh.id
+        WHERE nguoidung.vaitro = 'giangvien' AND nguoidung.id_chuyennganh = $id_chuyennganh";
+$result = mysqli_query($conn, $sql);
 ?>
 
 <!DOCTYPE html>
@@ -33,19 +39,15 @@ $result = $conn->query($sql);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chọn Giảng Viên Hướng Dẫn</title>
-    <!-- Reset CSS -->
+
     <link rel="stylesheet" href="../assests/css/reset.css" />
 
-    <!-- Style CSS -->
     <link rel="stylesheet" href="../assest/css/choice_teacher.css">
 </head>
 
 <body>
     <div class="container">
-        <!-- Sidebar -->
-
-
-        <!-- Nội dung chính -->
+    
         <div class="content">
             <h2 class="content-title">Danh sách giảng viên hướng dẫn</h2>
             <form action="process_choice.php" method="POST">
@@ -57,45 +59,77 @@ $result = $conn->query($sql);
                             <th>Chuyên ngành</th>
                             <th>Email</th>
                             <th>Điện thoại</th>
-                            <th>Chọn</th>
+                            <th>Nguyện vọng</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php while ($row = $result->fetch_assoc()) { ?>
+                        <?php while ($row = mysqli_fetch_assoc($result)) { ?>
                             <tr>
                                 <td><?php echo $row['ma_so_nguoidung']; ?></td>
                                 <td><?php echo $row['ho_ten']; ?></td>
                                 <td><?php echo $row['ten_chuyennganh'] ? $row['ten_chuyennganh'] : 'Chưa có'; ?></td>
                                 <td><?php echo $row['email']; ?></td>
                                 <td><?php echo $row['so_dien_thoai']; ?></td>
-                                <td><input type="checkbox" name="teachers[]" value="<?php echo $row['id']; ?>" class="teacher-checkbox"></td>
+                                <td>
+                                    <select name="nguyen_vong_<?php echo $row['id']; ?>" class="teacher-select">
+                                        <option value="0">Chọn nguyện vọng</option>
+                                        <option value="1">Nguyện vọng 1</option>
+                                        <option value="2">Nguyện vọng 2</option>
+                                        <option value="3">Nguyện vọng 3</option>
+                                    </select>
+                                </td>
                             </tr>
                         <?php } ?>
                     </tbody>
                 </table>
                 <button class="btn-submit" type="submit">Gửi nguyện vọng</button>
-            </form>
-
-            <!-- Hiển thị thông báo nếu gửi thành công -->
+        </form>
             <?php if (isset($_GET['status']) && $_GET['status'] == "success") : ?>
                 <p style="color: green;">Nguyện vọng của bạn đã được gửi thành công!</p>
             <?php endif; ?>
         </div>
     </div>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const checkboxes = document.querySelectorAll(".teacher-checkbox");
-            checkboxes.forEach(checkbox => {
-                checkbox.addEventListener("change", function() {
-                    let checkedCount = document.querySelectorAll(".teacher-checkbox:checked").length;
-                    if (checkedCount > 3) {
-                        this.checked = false;
-                        alert("Bạn chỉ có thể chọn tối đa 3 giảng viên!");
-                    }
-                });
-            });
-        });
-    </script>
+
 </body>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const selects = document.querySelectorAll(".teacher-select");
+
+    // Biến để theo dõi các nguyện vọng đã chọn
+    let chosenOptions = { 1: null, 2: null, 3: null };
+
+    selects.forEach(select => {
+        select.addEventListener("change", function() {
+            const selectedValue = parseInt(this.value);
+            const selectedTeacherId = this.name.split('_')[2]; // Lấy ID giảng viên từ tên input
+
+            if (selectedValue > 0) {
+                // Nếu đã chọn nguyện vọng này, kiểm tra xem nguyện vọng đó đã được chọn cho giảng viên khác chưa
+                if (chosenOptions[selectedValue] && chosenOptions[selectedValue] !== selectedTeacherId) {
+                    alert(`Nguyện vọng ${selectedValue} đã được chọn cho giảng viên khác, không thể chọn lại.`);
+                    this.value = "0"; // Hủy lựa chọn
+                    return;
+                }
+
+                // Nếu người dùng muốn sửa nguyện vọng đã chọn, cho phép thay đổi
+                if (chosenOptions[selectedValue] === selectedTeacherId) {
+                    chosenOptions[selectedValue] = null; // Hủy lựa chọn trước đó của giảng viên
+                }
+
+                // Đánh dấu nguyện vọng đã chọn cho giảng viên này
+                chosenOptions[selectedValue] = selectedTeacherId;
+                alert(`Bạn đã chọn nguyện vọng ${selectedValue} cho giảng viên này!`);
+
+            }
+        });
+    });
+});
+
+</script>
+
 
 </html>
+
+<?php
+mysqli_close($conn);
+?>

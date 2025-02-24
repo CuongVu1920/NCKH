@@ -12,7 +12,7 @@ $sql = "SELECT DISTINCT nguoidung.ma_so_nguoidung, nguoidung.ho_ten, nguoidung.e
             JOIN chuyennganh ON nguoidung.id_chuyennganh = chuyennganh.id
             LEFT JOIN chondetai ON nguoidung.id = chondetai.id_sinhvien AND chondetai.trang_thai = 'dong_y'
             LEFT JOIN detai_giangvien ON chondetai.id_detai = detai_giangvien.id
-            WHERE huongdan.id_giangvien = ? AND huongdan.trang_thai = 'dong_y'";
+            WHERE huongdan.id_giangvien = ? ";
 
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $id_giangvien);

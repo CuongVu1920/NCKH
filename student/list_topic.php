@@ -10,7 +10,7 @@ if (!isset($_SESSION['nguoidung']) || $_SESSION['nguoidung']['vaitro'] != 'sinhv
 $student_id = $_SESSION['nguoidung']['id']; // ID sinh viên từ session
 
 // Truy vấn giảng viên hướng dẫn của sinh viên
-$sql_gv = "SELECT id_giangvien FROM huongdan WHERE id_sinhvien = ? AND trang_thai = 'dong_y'";
+$sql_gv = "SELECT id_giangvien FROM huongdan WHERE id_sinhvien = ?";
 $stmt_gv = $conn->prepare($sql_gv);
 $stmt_gv->bind_param("i", $student_id);
 $stmt_gv->execute();

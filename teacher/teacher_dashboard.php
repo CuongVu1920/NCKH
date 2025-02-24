@@ -15,7 +15,6 @@
         <h2 class="sidebar-title">Menu</h2>
         <ul class="sidebar-menu">
             <li class="menu-item"><a href="teacher_dashboard.php?page_layout=teacher_info" class="menu-link">Thông tin</a></li>
-            <li class="menu-item"><a href="teacher_dashboard.php?page_layout=teacher_non" class="menu-link">Thông báo nguyện vọng</a></li>
             <li class="menu-item"><a href="teacher_dashboard.php?page_layout=accepted_students" class="menu-link">Danh sách sinh viên</a></li>
             <li class="menu-item"><a href="teacher_dashboard.php?page_layout=approve_topics" class="menu-link">Thông báo đề tài</a></li>
             <li class="menu-item"><a href="teacher_dashboard.php?page_layout=add_topic" class="menu-link">Thêm đề tài</a></li>
@@ -40,12 +39,6 @@
                   {
                     case "teacher_info":
                         include('teacher_info.php'); 
-                        break;
-                    case "teacher_non":
-                        include('teacher_non.php');
-                        break;
-                    case "update_status":
-                        include('update_status.php');
                         break;
                     case "accepted_students":
                         include('accepted_students.php');

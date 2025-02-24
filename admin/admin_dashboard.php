@@ -16,11 +16,14 @@
     <nav class="sidebar">
       <h2 class="sidebar-title">Menu</h2>
       <ul class="sidebar-menu">
+      <li class="menu-item"><a href="admin_dashboard.php?page_layout=add_hocky" class="menu-link">Thêm học kỳ</a></li>
+      <li class="menu-item"><a href="admin_dashboard.php?page_layout=hocky" class="menu-link">Học kỳ</a></li>
         <li class="menu-item"><a href="admin_dashboard.php?page_layout=add_major" class="menu-link">Thêm chuyên ngành</a></li>
         <li class="menu-item"><a href="admin_dashboard.php?page_layout=major" class="menu-link">Danh sách chuyên ngành</a></li>
         <li class="menu-item"><a href="admin_dashboard.php?page_layout=add_user" class="menu-link">Thêm người dùng</a></li>
         <li class="menu-item"><a href="admin_dashboard.php?page_layout=teacher_list" class="menu-link">Danh sách giảng viên</a></li>
         <li class="menu-item"><a href="admin_dashboard.php?page_layout=student_list" class="menu-link">Danh sách sinh viên</a></li>
+        <li class="menu-item"><a href="admin_dashboard.php?page_layout=duyet_nguyenvong" class="menu-link">Duyệt nguyện vọng</a></li>
         <li class="menu-item"><a href="admin_dashboard.php?page_layout=mocTienDo_list" class="menu-link">Danh sách mốc tiến độ</a></li>
         <li class="menu-item"><a href="admin_dashboard.php?page_layout=logout" class="menu-link">Đăng xuất</a></li>
       </ul>
@@ -75,6 +78,18 @@
           case "mocTienDo":
             include('mocTienDo.php');
             break;
+          case "add_hocky":
+            include('add_hocky.php');
+            break;
+          case "hocky":
+            include('hocky.php');
+            break;
+          case "update_hocky":
+            include('update_hocky.php');
+            break;
+          case "duyet_nguyenvong":
+              include('duyet_nguyenvong.php');
+              break;
           case "logout":
             session_destroy();
             session_unset();
