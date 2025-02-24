@@ -19,7 +19,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 'id' => $user['id'],
                 'ho_ten' => $user['ho_ten'],
                 'email' => $user['email'],
-                'vaitro' => $user['vaitro']
+                'vaitro' => $user['vaitro'],
+                'id_hocky' => $id_hocky
+
             ];       
             // Điều hướng theo vai trò
             switch ($user['vaitro']) {

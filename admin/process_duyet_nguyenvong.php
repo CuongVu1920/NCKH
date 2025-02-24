@@ -61,10 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Đóng kết nối và quay lại trang duyệt nguyện vọng
     mysqli_close($conn);
-    header("Location: approve_requests.php?success=1");
-    exit();
-} else {
-    header("Location: approve_requests.php");
+    header("admin_dashboard.php?page_layout=duyet_nguyenvong?success=1");
     exit();
 }
 ?>

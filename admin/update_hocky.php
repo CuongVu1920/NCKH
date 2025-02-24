@@ -53,7 +53,6 @@ if (isset($_GET['id'])) {
         form {
             display: flex;
             flex-direction: column;
-            align-items: center;
         }
 
         form label {
@@ -62,7 +61,7 @@ if (isset($_GET['id'])) {
 
         form input, form select {
             padding: 10px;
-            width: 80%;
+            width: 100%;
             margin-bottom: 20px;
             border-radius: 5px;
             border: 1px solid #ccc;
