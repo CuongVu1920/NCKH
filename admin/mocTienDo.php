@@ -4,7 +4,7 @@ include('connect.php');
 $student_id = intval($_GET['id']); // Lấy ID sinh viên từ URL
 
 
-$sql_topic = "SELECT ten_do_an FROM doan WHERE id_sinhvien = '$student_id'";
+$sql_topic = "SELECT ten_do_an  FROM doan WHERE id_sinhvien = '$student_id'";
 $result_topic = mysqli_query($conn, $sql_topic);
 $topic_name = mysqli_fetch_array($result_topic);
 
@@ -12,7 +12,13 @@ $sql_student = "SELECT ho_ten , ma_so_nguoidung FROM nguoidung WHERE id = '$stud
 $result_student = mysqli_query($conn,$sql_student);
 $student =mysqli_fetch_array($result_student);
 
-$sql_bainop = "SELECT duong_dan_file FROM bainop WHERE id_sinhvien = '$student_id'";
+$sql_doan = "SELECT id FROM doan WHERE id_sinhvien = '$student_id'";
+$result_doan = mysqli_query($conn, $sql_doan);
+$doan = mysqli_fetch_array($result_doan);
+$id_doan = $doan['id'];
+
+
+$sql_bainop = "SELECT duong_dan_file FROM bainop WHERE id_doan = '$id_doan'";
 $result_bainop = mysqli_query($conn,$sql_bainop);
 $bainop = mysqli_fetch_array($result_bainop);
 
@@ -50,28 +56,28 @@ $bainop = mysqli_fetch_array($result_bainop);
             <tbody>
                 <tr>
                     <td>Báo cáo đề cương</td>
-                    <td><?php echo $bainop['duong_dan_link'] ?? 'Trống' ?></td>
+                    <td><?php echo $bainop['duong_dan_file'] ?? 'Trống' ?></td>
                     <td>-</td>
                     <td>Chưa đánh giá</td>
                     <td><a type="submit" class="btn submit">Sửa</a></td>
                 </tr>
                 <tr>
                     <td>Báo cáo thiết kế</td>
-                    <td><?php echo $bainop['duong_dan_link'] ?? 'Trống' ?></td>
+                    <td><?php echo $bainop['duong_dan_file'] ?? 'Trống' ?></td>
                     <td>-</td>
                     <td>Chưa đánh giá</td>
                     <td><a type="submit" class="btn submit">Sửa</a></td>
                 </tr>
                 <tr>
                     <td>Báo cáo thử nghiệm</td>
-                    <td><?php echo $bainop['duong_dan_link'] ?? 'Trống' ?></td>
+                    <td><?php echo $bainop['duong_dan_file'] ?? 'Trống' ?></td>
                     <td>-</td>
                     <td>Chưa đánh giá</td>
                     <td><a type="submit" class="btn submit">Sửa</a></td>
                 </tr>
                 <tr>
                     <td>Báo cáo tổng kết</td>
-                    <td><?php echo $bainop['duong_dan_link'] ?? 'Trống' ?></td>
+                    <td><?php echo $bainop['duong_dan_file'] ?? 'Trống' ?></td>
                     <td>-</td>
                     <td>Chưa đánh giá</td>
                     <td><a type="submit" class="btn submit">Sửa</a></td>
