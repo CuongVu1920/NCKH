@@ -3,7 +3,7 @@ include('connect.php');
 
 $id_giangvien = $_SESSION['nguoidung']['id'];
 
-// Lấy danh sách sinh viên đã được chấp nhận cùng với đề tài của họ
+// Lấy danh sách sinh viên đã được chấp nhận cùng với đề tài của họ trong học kỳ hiện tại
 $sql = "SELECT DISTINCT nguoidung.ma_so_nguoidung, nguoidung.ho_ten, nguoidung.email, nguoidung.so_dien_thoai, 
                    chuyennganh.ten_chuyennganh, COALESCE(detai_giangvien.ten_de_tai, 'Chưa duyệt đề tài') AS ten_de_tai,
                    huongdan.id_sinhvien
@@ -12,7 +12,8 @@ $sql = "SELECT DISTINCT nguoidung.ma_so_nguoidung, nguoidung.ho_ten, nguoidung.e
             JOIN chuyennganh ON nguoidung.id_chuyennganh = chuyennganh.id
             LEFT JOIN chondetai ON nguoidung.id = chondetai.id_sinhvien AND chondetai.trang_thai = 'dong_y'
             LEFT JOIN detai_giangvien ON chondetai.id_detai = detai_giangvien.id
-            WHERE huongdan.id_giangvien = ? ";
+            JOIN hocky ON huongdan.id_hocky = hocky.id
+            WHERE huongdan.id_giangvien = ? AND hocky.trang_thai = 'Hoạt động'"; // Lọc theo học kỳ "Hoạt động"
 
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $id_giangvien);

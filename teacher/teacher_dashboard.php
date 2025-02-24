@@ -19,6 +19,7 @@
             <li class="menu-item"><a href="teacher_dashboard.php?page_layout=approve_topics" class="menu-link">Thông báo đề tài</a></li>
             <li class="menu-item"><a href="teacher_dashboard.php?page_layout=add_topic" class="menu-link">Thêm đề tài</a></li>
             <li class="menu-item"><a href="teacher_dashboard.php?page_layout=topic" class="menu-link">Danh sách đề tài</a></li>
+            <li class="menu-item"><a href="teacher_dashboard.php?page_layout=quatrinh" class="menu-link">Quá trình</a></li>
             <li class="menu-item"><a href="../admin/admin_dashboard.php?page_layout=logout" class="menu-link">Đăng xuất</a></li>
         </ul>
     </nav>
@@ -63,6 +64,9 @@
                         break;
                     case "chamDiem":
                         include('chamDiem.php');
+                        break;
+                    case "quatrinh":
+                        include('quatrinh.php');
                         break;
                     case "logout":
                         session_destroy();
