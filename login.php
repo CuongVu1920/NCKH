@@ -20,49 +20,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 'ho_ten' => $user['ho_ten'],
                 'email' => $user['email'],
                 'vaitro' => $user['vaitro']
-            ];
-            if ($user['vaitro'] === 'sinhvien') {
-                $student_id = $user['id'];
-            
-                // Kiểm tra sinh viên đã có đồ án chưa
-                $sql_check = "SELECT id FROM doan WHERE id_sinhvien = ?";
-                $stmt_check = $conn->prepare($sql_check);
-                $stmt_check->bind_param("i", $student_id);
-                $stmt_check->execute();
-                $stmt_check->store_result();
-            
-                if ($stmt_check->num_rows == 0) { // Nếu chưa có đồ án
-                    // Lấy thông tin đề tài của sinh viên
-                    $sql_topic = "SELECT detai_giangvien.ten_de_tai, detai_giangvien.mo_ta, 
-                                         huongdan.id_giangvien, nguoidung.id_chuyennganh
-                                  FROM chondetai
-                                  LEFT JOIN detai_giangvien ON chondetai.id_detai = detai_giangvien.id
-                                  LEFT JOIN huongdan ON chondetai.id_sinhvien = huongdan.id_sinhvien
-                                  LEFT JOIN nguoidung ON chondetai.id_sinhvien = nguoidung.id
-                                  WHERE chondetai.id_sinhvien = ? AND chondetai.trang_thai = 'dong_y'
-                                  LIMIT 1";
-                    $stmt_topic = $conn->prepare($sql_topic);
-                    $stmt_topic->bind_param("i", $student_id);
-                    $stmt_topic->execute();
-                    $result_topic = $stmt_topic->get_result();
-                    $topic = $result_topic->fetch_assoc();
-            
-                    if ($topic) {
-                        $ten_do_an = $topic['ten_de_tai'];
-                        $mo_ta = $topic['mo_ta'];
-                        $id_giangvien = $topic['id_giangvien'];
-                        $id_chuyennganh = $topic['id_chuyennganh'];
-            
-                        // Thêm vào bảng doan
-                        $sql_insert = "INSERT INTO doan (id_sinhvien, id_giangvien, ten_do_an, mo_ta, id_chuyennganh)
-                                       VALUES (?, ?, ?, ?, ?)";
-                        $stmt_insert = $conn->prepare($sql_insert);
-                        $stmt_insert->bind_param("iissi", $student_id, $id_giangvien, $ten_do_an, $mo_ta, $id_chuyennganh);
-                        $stmt_insert->execute();
-                    }
-                }
-            }
-            
+            ];       
             // Điều hướng theo vai trò
             switch ($user['vaitro']) {
                 case 'quantri':
