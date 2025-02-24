@@ -3,6 +3,7 @@ include('connect.php');
 
 // Lấy danh sách nguyện vọng của sinh viên và nhóm theo sinh viên
 $sql = "SELECT nguyenvong.id_sinhvien, nguoidung.ho_ten AS sinhvien, 
+        chuyennganh.ten_chuyennganh AS chuyennganh,  -- Thêm trường chuyên ngành
         MAX(CASE WHEN nguyenvong.muc_uu_tien = '1' THEN nguoidung_2.ho_ten ELSE NULL END) AS ngv_1,
         MAX(CASE WHEN nguyenvong.muc_uu_tien = '1' THEN nguoidung_2.id ELSE NULL END) AS id_ngv_1,
         MAX(CASE WHEN nguyenvong.muc_uu_tien = '2' THEN nguoidung_2.ho_ten ELSE NULL END) AS ngv_2,
@@ -12,8 +13,10 @@ $sql = "SELECT nguyenvong.id_sinhvien, nguoidung.ho_ten AS sinhvien,
         FROM nguyenvong 
         JOIN nguoidung ON nguyenvong.id_sinhvien = nguoidung.id
         JOIN nguoidung AS nguoidung_2 ON nguyenvong.id_giangvien = nguoidung_2.id
+        JOIN chuyennganh ON nguoidung.id_chuyennganh = chuyennganh.id  -- Kết nối bảng chuyên ngành
         WHERE nguyenvong.trangthai = 'Chờ duyệt'
-        GROUP BY nguyenvong.id_sinhvien, nguoidung.ho_ten";
+        GROUP BY nguyenvong.id_sinhvien, nguoidung.ho_ten, chuyennganh.ten_chuyennganh"; 
+
 
 $result = mysqli_query($conn, $sql);
 ?>
@@ -96,6 +99,7 @@ $result = mysqli_query($conn, $sql);
                 <thead>
                     <tr>
                         <th>Sinh viên</th>
+                        <th>Chuyên ngành</th>
                         <th>Nguyện vọng</th>
                         <th>Giảng viên</th>
                         <th>Chọn Giảng viên</th>
@@ -127,6 +131,7 @@ $result = mysqli_query($conn, $sql);
                     ?>
                         <tr>
                             <td class="student-name" rowspan="3"><?php echo $row['sinhvien']; ?></td>
+                            <td rowspan="3"><?php echo $row['chuyennganh']; ?></td>
                             <?php 
                                 // Dùng vòng for để hiển thị các nguyện vọng
                                 for ($i = 1; $i <= 3; $i++) { 
