@@ -1,91 +1,101 @@
 <?php
 include('connect.php');
 
-$student_id = intval($_GET['id']); // Lấy ID sinh viên từ URL
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+// Kiểm tra nếu sinh viên đã chọn giảng viên trước đó
+$id_sinhvien = $_SESSION['nguoidung']['id']; // Lấy id sinh viên từ session
 
+$sql_check = "SELECT id FROM huongdan WHERE id_sinhvien = ?";
+$stmt = $conn->prepare($sql_check);
+$stmt->bind_param("i", $id_sinhvien);
+$stmt->execute();
+$stmt->store_result();
 
-$sql_topic = "SELECT ten_do_an  FROM doan WHERE id_sinhvien = '$student_id'";
-$result_topic = mysqli_query($conn, $sql_topic);
-$topic_name = mysqli_fetch_array($result_topic);
+if ($stmt->num_rows > 0) {
+    // Nếu đã chọn giảng viên, hiển thị thông báo
+    echo "<script>alert('Bạn đã có giảng viên hướng dẫn'); window.location.href = 'student_dashboard.php?page_layout=student_info';</script>";
+    exit();
+}
+$sql = "SELECT nguoidung.id, nguoidung.ma_so_nguoidung, nguoidung.ho_ten, nguoidung.email, nguoidung.so_dien_thoai, chuyennganh.ten_chuyennganh 
+            FROM nguoidung 
+            LEFT JOIN chuyennganh ON nguoidung.id_chuyennganh = chuyennganh.id
+            WHERE nguoidung.vaitro = 'giangvien'";
 
-$sql_student = "SELECT ho_ten , ma_so_nguoidung FROM nguoidung WHERE id = '$student_id'";
-$result_student = mysqli_query($conn,$sql_student);
-$student =mysqli_fetch_array($result_student);
+$result = $conn->query($sql);
+?>
 
-$sql_doan = "SELECT id FROM doan WHERE id_sinhvien = '$student_id'";
-$result_doan = mysqli_query($conn, $sql_doan);
-$doan = mysqli_fetch_array($result_doan);
-$id_doan = $doan['id'];
-
-
-$sql_bainop = "SELECT duong_dan_file FROM bainop WHERE id_doan = '$id_doan'";
-$result_bainop = mysqli_query($conn,$sql_bainop);
-$bainop = mysqli_fetch_array($result_bainop);
-
- ?>
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Danh Sách Đề Tài</title>
-    <link rel="stylesheet" href="../assests/css/reset.css">
+    <title>Chọn Giảng Viên Hướng Dẫn</title>
+    <!-- Reset CSS -->
+    <link rel="stylesheet" href="../assests/css/reset.css" />
 
-    <link rel="stylesheet" href="../assest/css/moctiendo.css">
+    <!-- Style CSS -->
+    <link rel="stylesheet" href="../assest/css/choice_teacher.css">
 </head>
+
 <body>
     <div class="container">
-        
-        <div class="content">
+        <!-- Sidebar -->
 
-            <div class="heading">
-                <h2 class="content-title">Mốc Tiến Độ Đồ Án</h2>
-                <h2 class="content-title"> Tên Đồ Án: <?php echo $topic_name['ten_do_an']?? 'chưa có đề tài' ?> </h2>
-                <h2 class="content-title"><?php echo "$student[ho_ten] - $student[ma_so_nguoidung]"  ?></h2>
-            </div>
-        <table class="progress-table">
-            <thead>
-                <tr>
-                    <th>Mốc Tiến Độ</th>
-                    <th>File bài làm</th>
-                    <th>Điểm</th>
-                    <th>Đánh Giá</th>
-                    <th>Hành động</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Báo cáo đề cương</td>
-                    <td><?php echo $bainop['duong_dan_file'] ?? 'Trống' ?></td>
-                    <td>-</td>
-                    <td>Chưa đánh giá</td>
-                    <td><a type="submit" class="btn submit">Sửa</a></td>
-                </tr>
-                <tr>
-                    <td>Báo cáo thiết kế</td>
-                    <td><?php echo $bainop['duong_dan_file'] ?? 'Trống' ?></td>
-                    <td>-</td>
-                    <td>Chưa đánh giá</td>
-                    <td><a type="submit" class="btn submit">Sửa</a></td>
-                </tr>
-                <tr>
-                    <td>Báo cáo thử nghiệm</td>
-                    <td><?php echo $bainop['duong_dan_file'] ?? 'Trống' ?></td>
-                    <td>-</td>
-                    <td>Chưa đánh giá</td>
-                    <td><a type="submit" class="btn submit">Sửa</a></td>
-                </tr>
-                <tr>
-                    <td>Báo cáo tổng kết</td>
-                    <td><?php echo $bainop['duong_dan_file'] ?? 'Trống' ?></td>
-                    <td>-</td>
-                    <td>Chưa đánh giá</td>
-                    <td><a type="submit" class="btn submit">Sửa</a></td>
-                </tr>
-            </tbody>
-        </table>
+
+        <!-- Nội dung chính -->
+        <div class="content">
+            <h2 class="content-title">Danh sách giảng viên hướng dẫn</h2>
+            <form action="process_choice.php" method="POST">
+                <table class="teacher-table">
+                    <thead>
+                        <tr>
+                            <th>Mã GV</th>
+                            <th>Họ và tên</th>
+                            <th>Chuyên ngành</th>
+                            <th>Email</th>
+                            <th>Điện thoại</th>
+                            <th>Chọn</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php while ($row = $result->fetch_assoc()) { ?>
+                            <tr>
+                                <td><?php echo $row['ma_so_nguoidung']; ?></td>
+                                <td><?php echo $row['ho_ten']; ?></td>
+                                <td><?php echo $row['ten_chuyennganh'] ? $row['ten_chuyennganh'] : 'Chưa có'; ?></td>
+                                <td><?php echo $row['email']; ?></td>
+                                <td><?php echo $row['so_dien_thoai']; ?></td>
+                                <td><input type="checkbox" name="teachers[]" value="<?php echo $row['id']; ?>" class="teacher-checkbox"></td>
+                            </tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
+                <button class="btn-submit" type="submit">Gửi nguyện vọng</button>
+            </form>
+
+            <!-- Hiển thị thông báo nếu gửi thành công -->
+            <?php if (isset($_GET['status']) && $_GET['status'] == "success") : ?>
+                <p style="color: green;">Nguyện vọng của bạn đã được gửi thành công!</p>
+            <?php endif; ?>
         </div>
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const checkboxes = document.querySelectorAll(".teacher-checkbox");
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener("change", function() {
+                    let checkedCount = document.querySelectorAll(".teacher-checkbox:checked").length;
+                    if (checkedCount > 3) {
+                        this.checked = false;
+                        alert("Bạn chỉ có thể chọn tối đa 3 giảng viên!");
+                    }
+                });
+            });
+        });
+    </script>
 </body>
-</html>
 
+</html>
