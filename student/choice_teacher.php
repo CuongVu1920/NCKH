@@ -132,6 +132,28 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 });
+
+document.addEventListener("DOMContentLoaded", function() {
+    const form = document.querySelector("form");
+    const selects = document.querySelectorAll(".teacher-select");
+
+    form.addEventListener("submit", function(event) {
+        event.preventDefault(); // Ngăn chặn form submit mặc định
+
+        // Khóa tất cả các select để không thể thay đổi nguyện vọng
+        selects.forEach(select => {
+            if (select.value !== "0") {
+                select.disabled = true;
+            }
+        });
+
+        alert("Nguyện vọng của bạn đã được gửi! Bạn không thể thay đổi nữa.");
+        
+        // Gửi form sau khi xử lý xong
+        this.submit();
+    });
+});
+
 </script>
 </html>
 
