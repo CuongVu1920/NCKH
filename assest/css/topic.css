@@ -15,9 +15,9 @@
 
 /* Sidebar */
 .sidebar {
-    width: 250px;
+    width: 300px;
     height: 100vh;
-    background-color: #a8d0e6;
+    /* background-color: #a8d0e6; */
     padding: 20px;
     position: fixed;
     top: 0;
@@ -50,6 +50,25 @@
 
 .menu-link:hover {
     background-color: #87bdd8;
+}
+
+.content-add_student {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.content-add_student .add_user {
+ width: 150px;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ background-color: #42A5F5;
+ color: #000;
+ border-radius: 15px;
+ font-size: 14px;
+ text-decoration: none;
+ color: #fff;
 }
 
 /* Nội dung chính */

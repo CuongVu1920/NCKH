@@ -27,7 +27,7 @@ if (isset($_GET['id'])) {
     <link rel="stylesheet" href="../assests/css/reset.css">
 
     <!-- Style CSS -->
-    <link rel="stylesheet" href="../assest/css/add_topic.css">
+    <link rel="stylesheet" href="../assest/css/add_topic.css?v=<?php echo time(); ?>">
 </head>
 <body>
     <div class="container">

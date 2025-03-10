@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thêm Đề Tài</title>
     <link rel="stylesheet" href="../assests/css/reset.css">
-    <link rel="stylesheet" href="../assest/css/add_topic.css">
+    <link rel="stylesheet" href="../assest/css/add_topic.css?v=<?php echo time(); ?>">
 </head>
 <body>
     <div class="container">
@@ -22,8 +22,9 @@
 
                 <label for="mo_ta">Mô Tả:</label>
                 <textarea id="mo_ta" name="mo_ta" rows="4" required></textarea>
-
-                <button type="submit" class="btn submit">Thêm Đề Tài</button>
+            <div class="btn-container">
+                <button type="submit" class="btn submit"><i class="bi bi-plus-square"></i> Thêm Đề Tài</button>
+            </div>
             </form>
         </div>
     </div>

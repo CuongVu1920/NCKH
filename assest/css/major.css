@@ -6,9 +6,6 @@
     font-family: Arial, sans-serif;
 }
 
- 
-
-
 
 .container {
     width: 1320px;
@@ -19,9 +16,9 @@
 
 /* Sidebar */
 .sidebar {
-    width: 250px;
+    width: 300px;
     height: 100vh;
-    background-color: #a8d0e6;
+    /* background-color: #a8d0e6; */
     padding: 20px;
     position: fixed;
     top: 0;
@@ -132,6 +129,8 @@
     border-collapse: collapse;
     background-color: white;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    border: none;
+    border-bottom: 1px solid #357ABD
 }
 
 .major-table thead {

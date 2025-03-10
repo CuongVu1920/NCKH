@@ -28,7 +28,7 @@ $teacher = mysqli_fetch_assoc($result);
     <link rel="stylesheet" href="../assets/css/reset.css">
 
      <!-- Style CSS -->
-     <link rel="stylesheet" href="../assest/css/student_info.css">
+     <link rel="stylesheet" href="../assest/css/student_info.css?v=<?php echo time(); ?>">
 </head>
 <body>
   <div class="container">

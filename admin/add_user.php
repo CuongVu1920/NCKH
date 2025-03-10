@@ -11,9 +11,11 @@ $result_major = $conn->query($sql_major);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <title>Thêm Người Dùng</title>
     <link rel="stylesheet" href="../assests/css/reset.css">
     <link rel="stylesheet" href="../assest/css/add_user.css">
+    
 </head>
 <body>
   <div class="container">
@@ -80,8 +82,9 @@ $result_major = $conn->query($sql_major);
                     <?php endwhile; ?>
                 </select>
             </div>
-
-            <button type="submit" class="btn-submit">Thêm</button>
+        <div class="btn-container ">
+            <button type="submit" class="btn-submit"><i class="bi bi-plus-square"></i> Thêm</button>
+        </div>          
         </form>
     </div>
   </div>

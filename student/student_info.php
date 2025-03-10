@@ -43,7 +43,7 @@ $topic_name = $topic['ten_de_tai'] ?? 'Chưa có đề tài';
     <link rel="stylesheet" href="../assests/css/reset.css">
 
     <!-- Style CSS -->
-    <link rel="stylesheet" href="../assest/css/student_info.css">
+    <link rel="stylesheet" href="../assest/css/student_info.css?v=<?php echo time(); ?>">
 </head>
 <body>
   <div class="container">

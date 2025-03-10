@@ -15,9 +15,9 @@
 
 /* Sidebar */
 .sidebar {
-    width: 250px;
+    width: 300px;
     height: 100vh;
-    background-color: #a8d0e6;
+    /* background-color: #a8d0e6; */
     padding: 20px;
     position: fixed;
     top: 0;
@@ -58,6 +58,71 @@
     padding: 20px;
 }
 
+.content-add_student {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.content-add_student .add_user {
+ width: 150px;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ background-color: #42A5F5;
+ color: #000;
+ border-radius: 15px;
+ font-size: 14px;
+ text-decoration: none;
+ color: #fff;
+}
+
+
+/* phần sắp xếp và ô tìm kiếm*/
+/* 
+.content-title_container .sort{
+    position: relative;
+    width: 50%;
+    left: 7%;
+    padding: 0px 15px;
+    border-radius: 20px;
+    color: gray;
+    display: flex;
+    align-items: center;
+    background: rgba(184, 184, 184, 0.1);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    margin-bottom: 20px;
+}
+
+.sort label {
+    font-size: 14px;
+    color: #000;
+}
+
+.sort select {
+    background: none;
+    outline: none;
+    border: 1px solid #000;
+    padding: 6px 10px;
+    border-radius: 3px;
+    color: #000;
+    font-size: 14px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.sort select:hover {
+    border-color: #007BFF;
+}
+
+.sort select:focus {
+    border-color: #007BFF;
+    background: rgba(255, 255, 255, 0.1);
+} */
+
+/* phần sắp xếp và ô tìm kiếm*/
+
 .content-title {
     font-size: 24px;
     margin-bottom: 15px;
@@ -74,8 +139,13 @@
     margin-left: -320px;
 }
 
+.teacher-table th {
+    white-space:nowrap;
+}
+
 .teacher-table th, .teacher-table td {
-    border: 1px solid #BBDEFB; /* Viền xanh nhạt */
+    border: none;
+    border-bottom: 1px solid #BBDEFB; /* Viền xanh nhạt */
     padding: 12px;
     text-align: left;
     font-size: 16px;

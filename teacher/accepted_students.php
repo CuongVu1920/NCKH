@@ -28,16 +28,9 @@ $result = $stmt->get_result();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Danh sách sinh viên được chấp nhận</title>
     <link rel="stylesheet" href="../assests/css/reset.css">
-    <link rel="stylesheet" href="../assest/css/teacher_non.css">
+    <link rel="stylesheet" href="../assest/css/teacher_non.css?v=<?php echo time(); ?>">
 </head>
 <style>
-    /* Content */
-    .content {
-        width: 100%;
-        background-color: #f9f9f9;
-        border-radius: 8px;
-    }
-
     /* Title */
     .content-title {
         text-align: center;

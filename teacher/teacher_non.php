@@ -31,7 +31,7 @@
     <title>Thông Báo Giảng Viên</title>
     <link rel="stylesheet" href="../assests/css/reset.css">
 
-    <link rel="stylesheet" href="../assest/css/teacher_non.css">
+    <link rel="stylesheet" href="../assest/css/teacher_non.css?v=<?php echo time(); ?>">
 </head>
 <style>
     .msv, .name, .major, .sdt, .hd {

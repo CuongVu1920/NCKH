@@ -13,6 +13,15 @@ include('connect.php'); // Kết nối CSDL
     <!-- Style CSS -->
     <link rel="stylesheet" href="../assest/css/major.css">
     <style>
+
+        .container .content table th, 
+        .container .content table td {
+            border: none;
+            border-bottom: 1px solid #BBDEFB; /* Viền xanh nhạt */
+            padding: 12px;
+            text-align: left;
+            font-size: 16px;
+        }
         .action-btn {
             padding: 5px 10px;
             border: none;
@@ -24,7 +33,7 @@ include('connect.php'); // Kết nối CSDL
         }
 
         .edit-btn {
-            background-color: #ffc107;
+            background-color: #42A5F5;
             color: black;
         }
 
@@ -40,6 +49,25 @@ include('connect.php'); // Kết nối CSDL
         .delete-btn:hover {
             background-color: #c82333;
         }
+
+        .content-add_student {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 30px;
+        }
+
+        .content-add_student .add_user {
+            height: 40px;
+            width: 200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #42A5F5;
+            color: #000;
+            border-radius: 15px;
+            font-size: 14px;
+            color: #fff;
+        }
     </style>
 </head>
 <body>
@@ -48,7 +76,12 @@ include('connect.php'); // Kết nối CSDL
 
     <!-- Nội dung chính -->
     <div class="content">
-        <h2 class="content-title">Chọn Chuyên Ngành</h2>
+
+    <div class="content-add_student">
+                <h2 class="content-title">Chọn Chuyên Ngành</h2>
+                <a href="admin_dashboard.php?page_layout=add_major" class="add_user"><i style="margin-right: 5px;" class="bi bi-plus-square"></i> Thêm Chuyên Nghành</a>
+            </div>
+
 
         <!-- Bảng danh sách chuyên ngành -->
         <table class="major-table">
@@ -70,8 +103,8 @@ include('connect.php'); // Kết nối CSDL
                         echo "<td>" . htmlspecialchars($row['ma_chuyennganh']) . "</td>";
                         echo "<td>" . htmlspecialchars($row['ten_chuyennganh']) . "</td>";
                         echo "<td>
-                            <a href='admin_dashboard.php?page_layout=update_major&id=" . $row['id'] . "' class='action-btn edit-btn'>Sửa</a>
-                            <a href='admin_dashboard.php?page_layout=process_delete-major&id=" . $row['id'] . "' class='action-btn delete-btn' onclick='return confirm(\"Bạn có chắc chắn muốn xóa?\")'>Xóa</a>
+                            <a href='admin_dashboard.php?page_layout=update_major&id=" . $row['id'] . "' class='action-btn edit-btn'><i class='bi bi-pencil-square'></i></a>
+                            <a href='admin_dashboard.php?page_layout=process_delete-major&id=" . $row['id'] . "' class='action-btn delete-btn' onclick='return confirm(\"Bạn có chắc chắn muốn xóa?\")'><i class='bi bi-trash-fill'></i></a>
                         </td>";
                         echo "</tr>";
                     }

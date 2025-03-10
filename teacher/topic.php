@@ -16,7 +16,7 @@ include('connect.php');
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Danh Sách Đề Tài</title>
     <link rel="stylesheet" href="../assests/css/reset.css">
-    <link rel="stylesheet" href="../assest/css/topic.css">
+    <link rel="stylesheet" href="../assest/css/topic.css?v=<?php echo time(); ?>">
 </head>
 <body>
     <div class="container">
@@ -24,7 +24,11 @@ include('connect.php');
 
         <!-- Nội dung chính -->
         <div class="content">
-            <h2 class="content-title">Danh sách đề tài</h2>
+
+        <div class="content-add_student">
+               <h2 class="content-title">Danh sách đề tài</h2>
+                <a href="teacher_dashboard.php?page_layout=add_topic" class="add_user"> <i style="margin-right: 10px;" class="bi bi-plus-square"></i> Thêm Đề Tài</a>
+            </div>
             <table class="detai-table">
                 <thead>
                     <tr>

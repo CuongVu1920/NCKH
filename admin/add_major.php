@@ -24,8 +24,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <title>Thêm Chuyên Ngành</title>
     <style>
+
+
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
@@ -42,7 +45,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
             text-align: center;
-            width: 320px;
+            width: 1320px;
+            max-width: calc(100% - 48px);
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .form-title {
@@ -71,15 +77,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             font-size: 14px;
         }
 
-        .form-button {
-            background: #007bff;
-            color: white;
-            border: none;
-            padding: 10px;
+
+        .form-button_container {
             width: 100%;
+            display: flex;
+            justify-content: flex-end;
+        }
+        .form-button {
+            color: #fff;
+            width: auto;
+            height: 50px;
+            padding: 10px 20px;
+            border: none;
+            background-color: #2F6AD9;
             border-radius: 5px;
             cursor: pointer;
-            font-size: 16px;
         }
 
         .form-button:hover {
@@ -91,6 +103,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             color: green;
             font-weight: bold;
         }
+
+        
     </style>
 </head>
 <body>
@@ -112,7 +126,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <input type="text" id="ten_chuyennganh" name="ten_chuyennganh" class="form-input" required>
             </div>
 
-            <button type="submit" class="form-button">Thêm</button>
+            <div class="form-button_container">
+                <button type="submit" class="form-button"><i class="bi bi-plus-square"></i>  Thêm</button>
+            </div>
         </form>
     </div>
 </body>

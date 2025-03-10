@@ -23,7 +23,7 @@ if (mysqli_num_rows($result_check_topic) == 0) {
     <title>Danh Sách Đề Tài</title>
     <link rel="stylesheet" href="../assests/css/reset.css">
 
-    <link rel="stylesheet" href="../assest/css/moctiendo.css">
+    <link rel="stylesheet" href="../assest/css/moctiendo.css?v=<?php echo time(); ?>">
 </head>
 <body>
     <div class="container">
