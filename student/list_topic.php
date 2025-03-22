@@ -63,6 +63,9 @@ if ($accepted_topic_id) {
     echo "<script>alert('Bạn đã có đề tài rồi!'); window.location.href='student_dashboard.php?page_layout=student_info';</script>";
     exit();
 }
+
+// phân trang
+
 ?>
 
 <!DOCTYPE html>
@@ -72,12 +75,12 @@ if ($accepted_topic_id) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Danh Sách Đề Tài</title>
     <link rel="stylesheet" href="../assests/css/reset.css">
-    <link rel="stylesheet" href="../assests/css/topic.css">
+    <link rel="stylesheet" href="../assest/css/topic.css?v=<?php echo time(); ?>">
 </head>
 <body>
     <div class="container">
         <div class="content">
-            <h2 class="content-title">Danh sách đề tài của giảng viên hướng dẫn</h2>
+            <h2 class="content-title">Danh sách đề tài của giảng viên hướng dẫn </h2>
             <table class="detai-table">
                 <thead>
                     <tr>

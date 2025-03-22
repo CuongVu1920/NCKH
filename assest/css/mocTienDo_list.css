@@ -1,0 +1,157 @@
+/* Reset mặc định */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    width: 1320px;
+    max-width: calc(100% - 48px);
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+/* Sidebar */
+.sidebar {
+    width: 270px;
+    height: 100vh;
+    /* background-color: #a8d0e6; */
+    padding: 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    overflow-y: auto;
+}
+
+.sidebar:hover {
+    background-color: #a8d0e6;
+}
+
+.sidebar-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.sidebar-menu {
+    list-style: none;
+}
+
+.menu-item {
+    margin-bottom: 10px;
+}
+
+.menu-link {
+    text-decoration: none;
+    color: #333;
+    font-size: 16px;
+    display: block;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.menu-link:hover {
+    background-color: #87bdd8;
+}
+
+/* Nội dung chính */
+.content {
+    margin-left: 220px;
+    padding: 20px;
+}
+
+.content-add_student {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.content-add_student .add_user {
+ width: 150px;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ background-color: #42A5F5;
+ color: #000;
+ border-radius: 15px;
+ font-size: 14px;
+ text-decoration: none;
+ color: #fff;
+}
+
+
+/* phần sắp xếp và ô tìm kiếm*/
+
+.content-title {
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+/* Bảng danh sách giảng viên */
+.teacher-table {
+    width: 160%;
+    border-collapse: collapse;
+    background: #E3F2FD; /* Màu xanh nước biển nhạt */
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    margin-left: -320px;
+}
+
+.teacher-table th {
+    white-space:nowrap;
+}
+
+.teacher-table th, .teacher-table td {
+    border: none;
+    border-bottom: 1px solid #BBDEFB; /* Viền xanh nhạt */
+    padding: 12px;
+    text-align: left;
+    font-size: 16px;
+}
+
+.teacher-table th {
+    background-color: #90CAF9; /* Màu xanh nhạt hơn */
+    font-weight: bold;
+    color: #ffffff;
+    text-align: center;
+}
+
+.teacher-table tbody tr:nth-child(odd) {
+    background-color: #E3F2FD; /* Xanh nước biển nhạt */
+}
+
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+    .teacher-table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+}
+
+/* Nút Sửa */
+.edit-btn {
+    text-decoration: none;
+    background-color: #64B5F6;
+    color: white;
+    padding: 6px 12px;
+    border-radius: 5px;
+    margin-right: 5px;
+    display: inline-block;
+}
+
+.edit-btn:hover {
+    background-color: #42A5F5;
+}
+
+.act-btn {
+    display: flex;
+}
+
+.date-user, .name-user, .major-user, .ad-user {
+    white-space: nowrap;
+}

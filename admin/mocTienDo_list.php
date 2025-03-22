@@ -23,12 +23,12 @@ $result_sv = mysqli_query($conn, $sql_sv);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Danh Sách Sinh Viên</title>
     <link rel="stylesheet" href="../assests/css/reset.css">
-    <link rel="stylesheet" href="../assest/css/mocTienDo_list.css">
+    <link rel="stylesheet" href="../assest/css/mocTienDo_list.css?v=<?php echo time(); ?>">
 </head>
 <body>
   <div class="container">
     <div class="content">
-        <h2 class="content-title">Danh Sách Mốc Tiến Độ</h2>
+        <h2 class="content-title">Danh Sách Mốc Tiến Độ </h2>
         <table class="teacher-table">
             <thead>
                 <tr>
@@ -52,7 +52,7 @@ $result_sv = mysqli_query($conn, $sql_sv);
                     <td><?= htmlspecialchars($row['trang_thai']) ?></td>
                     <td>
                         <div class="act-btn">
-                            <a href="admin_dashboard.php?page_layout=mocTienDo&id=<?= $row['id'] ?>" class="edit-btn">Sửa</a>
+                            <a href="admin_dashboard.php?page_layout=mocTienDo&id=<?= $row['id'] ?>" class="edit-btn"><i class="bi bi-pencil-square"></i></a>
                         </div>
                     </td>
                 </tr>

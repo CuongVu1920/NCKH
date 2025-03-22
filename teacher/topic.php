@@ -7,7 +7,28 @@ include('connect.php');
     // Chỉ lấy danh sách đề tài của giảng viên hiện tại
     $sql = "SELECT * FROM detai_giangvien WHERE id_giangvien = '$id_giangvien'";
     $result = mysqli_query($conn, $sql);
+
+    // phân trang 
+$result_per_page = 7;
+
+$number_of_result = mysqli_num_rows($result);
+$number_of_page = ceil($number_of_result/$result_per_page);
+$page = isset($_GET['idpage']) ? (int)$_GET['idpage'] : 1;
+if ($page < 1) {
+$page = 1; // Đảm bảo page không nhỏ hơn 1
+}
+$this_page_first_result = ($page-1)*$result_per_page;
+
+$sql = "SELECT * FROM detai_giangvien 
+        WHERE id_giangvien = '$id_giangvien' 
+        LIMIT $this_page_first_result, $result_per_page";
+
+$result = mysqli_query($conn, $sql);
+
 ?>
+
+
+
 
 <!DOCTYPE html>
 <html lang="vi">
@@ -15,6 +36,7 @@ include('connect.php');
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Danh Sách Đề Tài</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../assests/css/reset.css">
     <link rel="stylesheet" href="../assest/css/topic.css?v=<?php echo time(); ?>">
 </head>
@@ -61,7 +83,49 @@ include('connect.php');
                 </tbody>
             </table>
         </div>
+
+
+         
+    <?php
+// Đảm bảo biến $current_page và $number_of_page không bị lỗi
+$current_page = isset($_GET['idpage']) ? (int)$_GET['idpage'] : 1;
+if ($current_page < 1) {
+    $current_page = 1;
+}
+if ($current_page > $number_of_page) {
+    $current_page = $number_of_page;
+}
+?>
+
+ <nav>
+    <ul class="pagination justify-content-center">
+        <?php if ($current_page > 1): ?>
+            <li class="page-item">
+                <a class="page-link" href="teacher_dashboard.php?page_layout=topic&idpage=1">Đầu</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="teacher_dashboard.php?page_layout=topic&idpage=<?php echo ($current_page - 1); ?>">Trước</a>
+            </li>
+        <?php endif; ?>
+
+        <?php for ($i = 1; $i <= $number_of_page; $i++): ?>
+            <li class="page-item <?php echo ($i == $current_page) ? 'active' : ''; ?>">
+                <a class="page-link" href="teacher_dashboard.php?page_layout=topic&idpage=<?php echo $i; ?>"><?php echo $i; ?></a>
+            </li>
+        <?php endfor; ?>
+
+        <?php if ($current_page < $number_of_page): ?>
+            <li class="page-item">
+                <a class="page-link" href="teacher_dashboard.php?page_layout=topic&idpage=<?php echo ($current_page + 1); ?>">Tiếp</a>
+            </li>
+            <li class="page-item">
+                <a class="page-link" href="teacher_dashboard.php?page_layout=topic&idpage=<?php echo $number_of_page; ?>">Cuối</a>
+            </li>
+        <?php endif; ?>
+    </ul>
+</nav> 
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
 

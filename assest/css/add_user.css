@@ -22,7 +22,7 @@ a {
 
 /* Sidebar */
 .sidebar {
-    width: 300px;
+    width: 270px;
     
     height: 100vh;
     padding: 20px;
@@ -30,6 +30,10 @@ a {
     top: 0;
     left: 0;
     overflow-y: auto;
+}
+
+.sidebar:hover {
+    background-color: #a8d0e6;
 }
 
 .sidebar-title {
