@@ -25,9 +25,6 @@
     overflow-y: auto;
 }
 
-.sidebar:hover {
-    background-color: #a8d0e6;
-}
 
 .sidebar-title {
     font-size: 20px;
@@ -50,10 +47,6 @@
     display: block;
     padding: 10px;
     border-radius: 5px;
-}
-
-.menu-link:hover {
-    background-color: #87bdd8;
 }
 
 .content-add_student {

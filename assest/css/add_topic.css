@@ -25,7 +25,7 @@
     overflow-y: auto;
 }
 
-.sidebar:hover {
+.sidebar:focus {
     background-color: #a8d0e6;
 }
 
@@ -43,6 +43,11 @@
     margin-bottom: 10px;
 }
 
+.menu-item:focus {
+    background: #cccc;
+}
+
+
 .menu-link {
     text-decoration: none;
     color: #333;
@@ -52,9 +57,6 @@
     border-radius: 5px;
 }
 
-.menu-link:hover {
-    background-color: #87bdd8;
-}
 
 /* Nội dung chính */
 .content {

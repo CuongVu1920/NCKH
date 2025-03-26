@@ -30,7 +30,6 @@
    
 }
 
-
 .sidebar-title {
     font-size: 20px;
     font-weight: bold;
@@ -54,9 +53,6 @@
     border-radius: 5px;
 }
 
-.menu-link:hover {
-    background-color: #87bdd8;
-}
 
 /* Nội dung chính */
 .content {

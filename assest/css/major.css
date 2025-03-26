@@ -18,16 +18,11 @@
 .sidebar {
     width: 270px;
     height: 100vh;
-    /* background-color: #a8d0e6; */
     padding: 20px;
     position: fixed;
     top: 0;
     left: 0;
     overflow-y: auto;
-}
-
-.sidebar:hover {
-    background-color: #a8d0e6;
 }
 
 .sidebar-title {
@@ -53,9 +48,6 @@
     border-radius: 5px;
 }
 
-.menu-link:hover {
-    background-color: #87bdd8;
-}
 
 /* Nội dung chính */
 .content {
