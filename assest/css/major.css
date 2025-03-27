@@ -18,7 +18,6 @@
 .sidebar {
     width: 270px;
     height: 100vh;
-    /* background-color: #a8d0e6; */
     padding: 20px;
     position: fixed;
     top: 0;
@@ -26,8 +25,11 @@
     overflow-y: auto;
 }
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 620998e2b11d0db956deb8a7439283f2ce23837b
 .sidebar-title {
     font-size: 20px;
     font-weight: bold;
@@ -51,9 +53,6 @@
     border-radius: 5px;
 }
 
-.menu-link:hover {
-    background-color: #87bdd8;
-}
 
 .menu-link:focus {
     outline: none;

@@ -23,7 +23,6 @@ a {
 /* Sidebar */
 .sidebar {
     width: 270px;
-    
     height: 100vh;
     padding: 20px;
     position: fixed;
@@ -47,7 +46,7 @@ a {
     margin-bottom: 10px;
 }
 
-.menu-link {
+.menu-link {    
     text-decoration: none;
     color: #333;
     font-size: 16px;
@@ -56,9 +55,6 @@ a {
     border-radius: 5px;
 }
 
-.menu-link:hover {
-    background-color: #87bdd8;
-}
 
 .menu-link:focus {
     outline: none;

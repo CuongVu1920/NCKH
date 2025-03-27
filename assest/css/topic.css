@@ -25,7 +25,10 @@
     overflow-y: auto;
 }
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 620998e2b11d0db956deb8a7439283f2ce23837b
 
 .sidebar-title {
     font-size: 20px;
@@ -50,6 +53,7 @@
     border-radius: 5px;
 }
 
+<<<<<<< HEAD
 .menu-link:hover {
     background-color: #87bdd8;
 }
@@ -66,6 +70,8 @@
 
 
 
+=======
+>>>>>>> 620998e2b11d0db956deb8a7439283f2ce23837b
 .content-add_student {
     display: flex;
     justify-content: space-between;

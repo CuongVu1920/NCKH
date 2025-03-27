@@ -19,11 +19,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 'id' => $user['id'],
                 'ho_ten' => $user['ho_ten'],
                 'email' => $user['email'],
-                'vaitro' => $user['vaitro']
+                'vaitro' => $user['vaitro'],
+                'id_chuyennganh' => $user['id_chuyennganh'] 
             ];
             if ($user['vaitro'] === 'sinhvien') {
                 $student_id = $user['id'];
-            
+                
                 // Kiểm tra sinh viên đã có đồ án chưa
                 $sql_check = "SELECT id FROM doan WHERE id_sinhvien = ?";
                 $stmt_check = $conn->prepare($sql_check);

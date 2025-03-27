@@ -1,29 +1,53 @@
 <?php
 include('connect.php');
 
-if (session_status() == PHP_SESSION_NONE) {
-    session_start();
+// Kiểm tra đăng nhập
+if (!isset($_SESSION['nguoidung'])) {
+    header("Location: login.php");
+    exit();
 }
-// Kiểm tra nếu sinh viên đã chọn giảng viên trước đó
-$id_sinhvien = $_SESSION['nguoidung']['id']; // Lấy id sinh viên từ session
 
+$id_sinhvien = $_SESSION['nguoidung']['id'];
+
+// 1. LẤY CHUYÊN NGÀNH CỦA SINH VIÊN TRỰC TIẾP TỪ DATABASE
+$sql_sinhvien = "SELECT id_chuyennganh FROM nguoidung WHERE id = ?";
+$stmt_sinhvien = $conn->prepare($sql_sinhvien);
+$stmt_sinhvien->bind_param("i", $id_sinhvien);
+$stmt_sinhvien->execute();
+$result_sinhvien = $stmt_sinhvien->get_result();
+
+if ($result_sinhvien->num_rows === 0) {
+    die("Không tìm thấy thông tin sinh viên");
+}
+
+$row_sinhvien = $result_sinhvien->fetch_assoc();
+$id_chuyennganh = $row_sinhvien['id_chuyennganh'];
+
+
+// 2. KIỂM TRA SINH VIÊN ĐÃ CÓ GIẢNG VIÊN HƯỚNG DẪN CHƯA
 $sql_check = "SELECT id FROM huongdan WHERE id_sinhvien = ?";
-$stmt = $conn->prepare($sql_check);
-$stmt->bind_param("i", $id_sinhvien);
-$stmt->execute();
-$stmt->store_result();
+$stmt_check = $conn->prepare($sql_check);
+$stmt_check->bind_param("i", $id_sinhvien);
+$stmt_check->execute();
+$stmt_check->store_result();
 
-if ($stmt->num_rows > 0) {
-    // Nếu đã chọn giảng viên, hiển thị thông báo
+if ($stmt_check->num_rows > 0) {
     echo "<script>alert('Bạn đã có giảng viên hướng dẫn'); window.location.href = 'student_dashboard.php?page_layout=student_info';</script>";
     exit();
 }
-$sql = "SELECT nguoidung.id, nguoidung.ma_so_nguoidung, nguoidung.ho_ten, nguoidung.email, nguoidung.so_dien_thoai, chuyennganh.ten_chuyennganh 
-            FROM nguoidung 
-            LEFT JOIN chuyennganh ON nguoidung.id_chuyennganh = chuyennganh.id
-            WHERE nguoidung.vaitro = 'giangvien'";
 
-$result = $conn->query($sql);
+// 4. LẤY DANH SÁCH GIẢNG VIÊN CÙNG CHUYÊN NGÀNH (SỬ DỤNG $id_chuyennganh ĐÃ LẤY Ở TRÊN)
+$sql = "SELECT nguoidung.id, nguoidung.ma_so_nguoidung, nguoidung.ho_ten, 
+               nguoidung.email, nguoidung.so_dien_thoai, chuyennganh.ten_chuyennganh 
+        FROM nguoidung 
+        LEFT JOIN chuyennganh ON nguoidung.id_chuyennganh = chuyennganh.id
+        WHERE nguoidung.vaitro = 'giangvien' 
+        AND nguoidung.id_chuyennganh = ?"; 
+
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $id_chuyennganh);
+$stmt->execute();
+$result = $stmt->get_result();
 ?>
 
 <!DOCTYPE html>
