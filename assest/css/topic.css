@@ -25,9 +25,7 @@
     overflow-y: auto;
 }
 
-.sidebar:hover {
-    background-color: #a8d0e6;
-}
+
 
 .sidebar-title {
     font-size: 20px;
@@ -55,6 +53,18 @@
 .menu-link:hover {
     background-color: #87bdd8;
 }
+
+.menu-link:focus {
+    outline: none;
+    background-color: #87bdd8;
+}
+
+.menu-link.active {
+    background-color: #a8d0e6;
+    color: #000;
+}
+
+
 
 .content-add_student {
     display: flex;

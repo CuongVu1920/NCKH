@@ -48,8 +48,12 @@ if (!empty($keyword)) {
     }
 }
 
+function isActive($name) {
+    return (isset($_GET['page_layout']) && $_GET['page_layout'] === $name) ? 'active' : '';
+}
 
 ?>
+
 
 
 <!DOCTYPE html>
@@ -79,11 +83,11 @@ if (!empty($keyword)) {
       <h2 class="sidebar-title">Menu</h2>
       <ul class="sidebar-menu">
         <li style="display: none;" class="menu-item"><a href="admin_dashboard.php?page_layout=add_major" class="menu-link">Thêm chuyên ngành</a></li>
-        <li class="menu-item"><a href="admin_dashboard.php?page_layout=major" class="menu-link"><i class="bi bi-laptop"></i> Danh sách chuyên ngành</a></li>
+        <li class="menu-item"><a href="admin_dashboard.php?page_layout=major" class="menu-link <?= isActive('major') ?>"  ><i class="bi bi-laptop"></i> Danh sách chuyên ngành</a></li>
         <li style="display: none;" class="menu-item"><a href="admin_dashboard.php?page_layout=add_user" class="menu-link">Thêm người dùng</a></li>
-        <li class="menu-item"><a href="admin_dashboard.php?page_layout=teacher_list" class="menu-link"><i class="bi bi-person-lines-fill"></i><Dialog></Dialog> Danh sách giảng viên</a></li>
-        <li class="menu-item"><a href="admin_dashboard.php?page_layout=student_list" class="menu-link"><i class="bi bi-person-circle"></i> Danh sách sinh viên</a></li>
-        <li class="menu-item"><a href="admin_dashboard.php?page_layout=mocTienDo_list" class="menu-link"><i class="bi bi-card-list"></i> Danh sách mốc tiến độ</a></li>
+        <li class="menu-item"><a href="admin_dashboard.php?page_layout=teacher_list" class="menu-link <?= isActive('teacher_list') ?>"  ><i class="bi bi-person-lines-fill"></i><Dialog></Dialog> Danh sách giảng viên</a></li>
+        <li class="menu-item"><a href="admin_dashboard.php?page_layout=student_list" class="menu-link <?= isActive('student_list') ?>" ><i class="bi bi-person-circle"></i> Danh sách sinh viên</a></li>
+        <li class="menu-item"><a href="admin_dashboard.php?page_layout=mocTienDo_list" class="menu-link <?= isActive('mocTienDo_list') ?>"><i class="bi bi-card-list"></i> Danh sách mốc tiến độ</a></li>
         <li class="menu-item"><a href="admin_dashboard.php?page_layout=logout" class="menu-link"><i class="bi bi-box-arrow-right"></i> Đăng xuất</a></li>
       </ul>
     </nav>

@@ -11,7 +11,7 @@ include('connect.php'); // Kết nối CSDL
     <!-- Reset CSS -->
     <link rel="stylesheet" href="../assests/css/reset.css">
     <!-- Style CSS -->
-    <link rel="stylesheet" href="../assest/css/major.css">
+    <link rel="stylesheet" href="../assest/css/major.css?v=<?php echo time(); ?>">
     <style>
 
         .container .content table th, 

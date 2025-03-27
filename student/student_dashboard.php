@@ -16,6 +16,10 @@
     $stmt->execute();
     $stmt->store_result();
     $has_teacher = $stmt->num_rows > 0; // True nếu đã có giảng viên
+
+    function isActive($name) {
+        return (isset($_GET['page_layout']) && $_GET['page_layout'] === $name) ? 'active' : '';
+    }
 ?>
 
 <!DOCTYPE html>
@@ -38,10 +42,10 @@
       <nav class="sidebar">
         <h2 class="sidebar-title">Menu</h2>
         <ul class="sidebar-menu">
-            <li class="menu-item"><a href="student_dashboard.php?page_layout=student_info" class="menu-link"> <i class="bi bi-person-circle"></i> Thông tin</a></li>
-            <li class="menu-item"><a href="student_dashboard.php?page_layout=choice_teacher"class="menu-link"><i class="bi bi-list"></i> Danh sách giảng viên</a></li>
-            <li class="menu-item"><a href="student_dashboard.php?page_layout=list_topic" class="menu-link"><i class="bi bi-list-task"></i> Danh sách đề tài</a></li>
-            <li class="menu-item"><a href="student_dashboard.php?page_layout=mocTienDo" class="menu-link"> <i class="bi bi-check-circle-fill"></i> Mốc tiến độ</a></li>
+            <li class="menu-item"><a href="student_dashboard.php?page_layout=student_info" class="menu-link <?= isActive('student_info') ?>"> <i class="bi bi-person-circle"></i> Thông tin</a></li>
+            <li class="menu-item"><a href="student_dashboard.php?page_layout=choice_teacher"class="menu-link <?= isActive('choice_teacher') ?>"><i class="bi bi-list"></i> Danh sách giảng viên</a></li>
+            <li class="menu-item"><a href="student_dashboard.php?page_layout=list_topic" class="menu-link <?= isActive('list_topic') ?>"><i class="bi bi-list-task"></i> Danh sách đề tài</a></li>
+            <li class="menu-item"><a href="student_dashboard.php?page_layout=mocTienDo" class="menu-link  <?= isActive('mocTienDo') ?>"> <i class="bi bi-check-circle-fill"></i> Mốc tiến độ</a></li>
             <li class="menu-item"><a href="../admin/admin_dashboard.php?page_layout=logout" class="menu-link"><i class="bi bi-box-arrow-right"></i>  Đăng xuất</a></li>
         </ul>
     </nav>
