@@ -25,13 +25,11 @@
     overflow-y: auto;
 }
 
-<<<<<<< HEAD
 
-=======
 .sidebar:focus {
     background-color: #a8d0e6;
 }
->>>>>>> 620998e2b11d0db956deb8a7439283f2ce23837b
+
 
 .sidebar-title {
     font-size: 20px;

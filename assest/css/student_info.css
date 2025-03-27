@@ -32,11 +32,6 @@ a {
     overflow-y: auto;
 }
 
-<<<<<<< HEAD
-=======
-
->>>>>>> 620998e2b11d0db956deb8a7439283f2ce23837b
-
 .sidebar-title {
     font-size: 20px;
     font-weight: bold;
@@ -60,7 +55,7 @@ a {
     border-radius: 5px;
 }
 
-<<<<<<< HEAD
+
 .menu-link:hover {
     background-color: #87bdd8;
 }
@@ -76,8 +71,7 @@ a {
 }
 
 
-=======
->>>>>>> 620998e2b11d0db956deb8a7439283f2ce23837b
+
 /* Nội dung chính */
 .content { 
     margin-left: 70px;
