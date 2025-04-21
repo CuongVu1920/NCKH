@@ -38,7 +38,7 @@ $bainop = mysqli_fetch_array($result_bainop);
 
             <div class="heading">
                 <h2 class="content-title">Mốc Tiến Độ Đồ Án</h2>
-                <h2 class="content-title"> Tên Đồ Án: <?php echo $topic_name['ten_do_an'] ?? 'chưa có đề tài' ?> </h2>
+                <h2 class="content-title"> Tên Đồ Án: <?php echo $topic_name ?? 'chưa có đề tài' ?> </h2>
                 <h2 class="content-title"><?php echo "$student[ho_ten] - $student[ma_so_nguoidung]" ?></h2>
             </div>
             <table class="progress-table">

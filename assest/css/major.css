@@ -68,8 +68,11 @@
 }
 
 .content-title {
+    position: relative;
     font-size: 24px;
     margin-bottom: 40px;
+    right: 400px;
+    font-weight: bold;
 }
 
 /* Thông tin chuyên ngành */

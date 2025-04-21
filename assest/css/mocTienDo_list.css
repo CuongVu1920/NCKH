@@ -88,8 +88,11 @@
 /* phần sắp xếp và ô tìm kiếm*/
 
 .content-title {
+    position: relative;
     font-size: 24px;
-    margin-bottom: 15px;
+    margin-bottom: 30px;
+    right: 300px;
+    font-weight: bold;
 }
 
 /* Bảng danh sách giảng viên */

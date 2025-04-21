@@ -52,6 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         .form-title {
+      
             margin-bottom: 15px;
             font-size: 20px;
             color: #333;

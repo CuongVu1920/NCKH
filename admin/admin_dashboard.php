@@ -10,17 +10,11 @@ if (!empty($keyword)) {
             WHERE (
             nguoidung.ma_so_nguoidung LIKE ?
             OR nguoidung.ho_ten LIKE ?
-            OR nguoidung.email LIKE ?
-            OR nguoidung.so_dien_thoai LIKE ?
-            OR nguoidung.ngay_sinh LIKE ?
-            OR nguoidung.gioi_tinh LIKE ?
-            OR nguoidung.dia_chi LIKE ?
             )";
 
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sssssss",
-        $searchTerm, $searchTerm, $searchTerm, $searchTerm, 
-        $searchTerm, $searchTerm, $searchTerm
+    $stmt->bind_param("ss",
+        $searchTerm, $searchTerm
     );
     $stmt->execute();
     $result = $stmt->get_result();
