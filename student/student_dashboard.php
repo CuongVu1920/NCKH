@@ -20,8 +20,72 @@
     function isActive($name) {
         return (isset($_GET['page_layout']) && $_GET['page_layout'] === $name) ? 'active' : '';
     }
-?>
 
+    // phần tìm kiếm
+    $keyword = isset($_GET['keyword']) ? trim($_GET['keyword']) : '';
+    if (!empty($keyword)) {
+        $stmt_ch = $conn->prepare("SELECT id_chuyennganh FROM nguoidung WHERE id = ?");
+        $stmt_ch->bind_param("i", $id_sinhvien);
+        $stmt_ch->execute();
+        $result_ch = $stmt_ch->get_result();
+        $row_ch = $result_ch->fetch_assoc();
+        $id_chuyennganh_sinhvien = $row_ch['id_chuyennganh'];
+
+        $searchTerm = "%$keyword%";
+        $sql = "SELECT nguoidung.*, chuyennganh.ten_chuyennganh 
+                FROM nguoidung 
+                LEFT JOIN chuyennganh ON nguoidung.id_chuyennganh = chuyennganh.id
+                WHERE (nguoidung.ma_so_nguoidung LIKE ? OR nguoidung.ho_ten LIKE ?)
+                AND nguoidung.vaitro = 'giangvien'
+                AND nguoidung.id_chuyennganh = ?";
+    
+        $stmt = $conn->prepare($sql);
+        $stmt->bind_param("ssi", $searchTerm, $searchTerm, $id_chuyennganh_sinhvien);    
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+        echo "<h2 
+        style= '
+          margin-left: 300px;
+          margin-top: 100px;
+          font-size:22px; 
+          font-weight: bold; 
+          font-family: Arial, sans-serif;
+        '>Kết quả tìm kiếm: <strong>". $keyword . "</strong></h2>";
+        echo "<form method='post' action='process_choice.php'>";
+        echo "<table class= 'teacher-table' style= 'width:1032px; margin-left: 300px; margin-top: 15px' >";
+        echo "<thead>";
+        echo "<tr>
+        <th>Mã số</th>
+        <th>Họ tên</th>
+        <th>Chuyên ngành</th>
+        <th>Email</th>
+        <th>Điện thoại</th>
+        <th>Chọn</th>
+        </tr>";
+        echo " </thead>";
+
+        while ($row = $result->fetch_assoc()) {
+            echo "<tbody>";
+            echo "<tr>";
+            echo "<td>".$row['ma_so_nguoidung']."</td>";
+            echo "<td>".$row['ho_ten']."</td>";
+            echo "<td>".$row['ten_chuyennganh']."</td>";
+            echo "<td>".$row['email']."</td>";
+            echo "<td>".$row['so_dien_thoai']."</td>";
+            echo "<td><input type='checkbox' name='teachers[]' value='" . $row['id'] . "' class='teacher-checkbox'></td>";
+            echo "</tr>";
+            echo "</tbody>";
+        }
+        echo "</table>";
+        echo "<button type='submit' class='btn-submit'>Gửi nguyện vọng</button>";
+        echo "</form>";
+    } else {
+        echo "<p class='no-results'>Không tìm thấy kết quả nào.</p>";
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -35,6 +99,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
     <link rel="stylesheet" href="../assests/css/reset.css">
     <link rel="stylesheet" href="../assest/css/add_user.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="../assest/css/choice_teacher.css?v=<?php echo time(); ?>">
 </head>
 <body>
   <div class="container">
@@ -51,7 +116,26 @@
     </nav>
 
     <!-- Nội dung chính -->
-    <div class="content">
+    <div class="content" >
+
+    <div style="display: flex; justify-content: flex-end;">
+    <div class="content-title_container">
+        <!-- form tìm kiếm -->
+        <?php
+        $page_layout = isset($_GET['page_layout']) ? $_GET['page_layout'] : '';
+        if ($page_layout === 'choice_teacher') { 
+            ?>
+            <form style="width: 100%;" id="search-form" class="search" action="student_dashboard.php" method="GET">
+            <input type="text" name="keyword" placeholder="Tìm kiếm..." required>
+                <button type="submit">
+                    <i class="bi bi-search"></i>
+                </button>
+            </form>
+            <?php
+        }
+        ?>
+        </div>
+        </div>
         <?php 
           if(isset($_GET['page_layout'])){
               switch($_GET['page_layout'])
@@ -86,7 +170,7 @@
                         header('Location: ../login.php');
                         exit();
                   }
-          }   
+          }
         ?>
     </div>
   </div>

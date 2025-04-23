@@ -71,8 +71,8 @@
                         <td><?php echo htmlspecialchars($row['so_dien_thoai']); ?></td>
                         <td>
                             <div class="act-btn">
-                                <button class="btn-accept" data-id="<?php echo $row['id']; ?>" <?php echo ($total_accepted >= 5) ? 'disabled' : ''; ?>>Chấp nhận</button>
-                                <button class="btn-reject" data-id="<?php echo $row['id']; ?>">Từ chối</button>
+                                <button class="btn accept" data-id="<?php echo $row['id']; ?>" <?php echo ($total_accepted >= 5) ? 'disabled' : ''; ?>>Chấp nhận</button>
+                                <button class="btn reject" data-id="<?php echo $row['id']; ?>">Từ chối</button>
                             </div>
                         </td>
                     </tr>

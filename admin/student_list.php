@@ -29,6 +29,7 @@ $page = isset($_GET['idpage']) ? (int)$_GET['idpage'] : 1;
 if ($page < 1) {
     $page = 1;
 }
+
 $this_page_first_result = ($page - 1) * $result_per_page;
 
 $allowed_sort_columns = ['ma_so_nguoidung', 'ten_chuyennganh'];
