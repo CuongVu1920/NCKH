@@ -81,9 +81,9 @@ if (isset($_GET['message']) && $_GET['message']) {
         <div class="content">
             <div class="content-add_student">
                 <h2 class="content-title">Danh Sách Sinh Viên</h2>
-                <a href="admin_dashboard.php?page_layout=add_user" class="add_user"> <i class="bi bi-person-fill-add"></i> Thêm người dùng</a>
 
                 <div class="action-buttons d-flex align-items-center gap-2">
+                <a href="admin_dashboard.php?page_layout=add_user" class="btn btn-primary"> <i class="bi bi-person-fill-add"></i> Thêm người dùng</a>
                     <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#uploadExcelModal">
                         <i class="bi bi-file-earmark-excel"></i> Upload Excel
                     </button>
