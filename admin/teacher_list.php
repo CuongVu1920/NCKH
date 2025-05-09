@@ -74,7 +74,39 @@ $result = mysqli_query($conn, $sql);
 
             <div class="content-add_student">
                  <h2 class="content-title">Danh Sách Giảng Viên</h2>
-                <a href="admin_dashboard.php?page_layout=add_user" class="add_user"> <i class="bi bi-person-fill-add"></i> Thêm người dùng</a>
+                <div class="action-buttons d-flex align-items-center gap-2">
+                    <a href="admin_dashboard.php?page_layout=add_user" class="btn btn-primary"> <i class="bi bi-person-fill-add"></i> Thêm người dùng</a>
+                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#uploadExcelModal">
+                        <i class="bi bi-file-earmark-excel"></i> Upload Excel
+                    </button>
+                </div>
+            </div>
+
+            <!-- Modal Upload Excel -->
+            <div class="modal fade" id="uploadExcelModal" tabindex="-1" aria-labelledby="uploadExcelModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="uploadExcelModalLabel">Upload File Excel</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="import_students.php" method="POST" enctype="multipart/form-data">
+                                <div class="mb-3">
+                                    <label for="excelFile" class="form-label">Chọn file Excel</label>
+                                    <input type="file" class="form-control" id="excelFile" name="excelFile" accept=".xlsx, .xls" required>
+                                </div>
+                                <div class="mb-3">
+                                    <a href="template/student_template.xlsx" class="btn btn-info">Tải template mẫu</a>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                    <button type="submit" class="btn btn-primary">Upload</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
 
         <table class="teacher-table">
