@@ -1,4 +1,7 @@
 <?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 include 'connect.php';
 
 $sort_order = isset($_GET['sort']) && in_array(strtolower($_GET['sort']), ['asc', 'desc']) ? strtoupper($_GET['sort']) : 'ASC';
@@ -48,6 +51,10 @@ $result = mysqli_query($conn, $sql);
 if (!$result) {
     die("Query failed: " . $conn->error);
 }
+
+if (isset($_GET['message']) && $_GET['message']) {
+    echo '<div class="alert alert-success mt-3" role="alert">' . htmlspecialchars($_GET['message']) . '</div>';
+}
 ?>
 
 <!DOCTYPE html>
@@ -74,8 +81,58 @@ if (!$result) {
         <div class="content">
             <div class="content-add_student">
                 <h2 class="content-title">Danh Sách Sinh Viên</h2>
-                <a href="admin_dashboard.php?page_layout=add_user" class="add_user"> <i class="bi bi-person-fill-add"></i> Thêm người dùng</a>
+
+                <div class="action-buttons d-flex align-items-center gap-2">
+                <a href="admin_dashboard.php?page_layout=add_user" class="btn btn-primary"> <i class="bi bi-person-fill-add"></i> Thêm người dùng</a>
+                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#uploadExcelModal">
+                        <i class="bi bi-file-earmark-excel"></i> Upload Excel
+                    </button>
+                </div>
             </div>
+
+            <!-- Modal Upload Excel -->
+            <div class="modal fade" id="uploadExcelModal" tabindex="-1" aria-labelledby="uploadExcelModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="uploadExcelModalLabel">Upload File Excel</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <form action="import_students.php" method="POST" enctype="multipart/form-data">
+                                <div class="mb-3">
+                                    <label for="excelFile" class="form-label">Chọn file Excel</label>
+                                    <input type="file" class="form-control" id="excelFile" name="excelFile" accept=".xlsx, .xls" required>
+                                </div>
+                                <div class="mb-3">
+                                    <a href="template/student_template.xlsx" class="btn btn-info">Tải template mẫu</a>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                                    <button type="submit" class="btn btn-primary">Upload</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <?php if (isset($_SESSION['import_errors']) && !empty($_SESSION['import_errors'])): ?>
+                <div class="alert alert-danger mt-3" role="alert">
+                    <strong>Các lỗi khi import:</strong>
+                    <ul>
+                        <?php foreach ($_SESSION['import_errors'] as $err): ?>
+                            <li><?= htmlspecialchars($err) ?></li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+            <?php unset($_SESSION['import_errors']); endif; ?>
+
+            <?php if (isset($_GET['message']) && $_GET['message']): ?>
+                <div class="alert alert-success mt-3" role="alert">
+                    <?= htmlspecialchars($_GET['message']) ?>
+                </div>
+            <?php endif; ?>
 
             <table class="teacher-table">
                 <thead>

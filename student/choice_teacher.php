@@ -36,7 +36,6 @@ if ($stmt_check->num_rows > 0) {
     exit();
 }
 
-
 // PHÂN TRANG 
 $limit = 5;
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
@@ -53,6 +52,7 @@ $total_teachers = $row_count['total'];
 $total_pages = ceil($total_teachers / $limit);
 
 // 4. LẤY DANH SÁCH GIẢNG VIÊN CÙNG CHUYÊN NGÀNH (SỬ DỤNG $id_chuyennganh ĐÃ LẤY Ở TRÊN)
+// 3. LẤY DANH SÁCH GIẢNG VIÊN CÙNG CHUYÊN NGÀNH (SỬ DỤNG $id_chuyennganh ĐÃ LẤY Ở TRÊN)
 $sql = "SELECT nguoidung.id, nguoidung.ma_so_nguoidung, nguoidung.ho_ten, 
                nguoidung.email, nguoidung.so_dien_thoai, chuyennganh.ten_chuyennganh 
         FROM nguoidung 
