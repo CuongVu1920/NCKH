@@ -152,6 +152,9 @@ function isActive($name) {
           case "mocTienDo":
             include('mocTienDo.php');
             break;
+          case "update_mocTienDo":
+            include('update_mocTienDo.php');
+            break;
           case "logout":
             session_destroy();
             session_unset();

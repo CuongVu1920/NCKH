@@ -82,14 +82,14 @@
         </div>
     </div>
     <script>
-        document.querySelectorAll('.btn-accept').forEach(button => {
-            button.addEventListener('click', function() {
+        document.querySelectorAll('.btn.accept').forEach(button => {
+            button.addEventListener('click', function () {
                 updateStatus(this.dataset.id, 'dong_y', this);
             });
         });
 
-        document.querySelectorAll('.btn-reject').forEach(button => {
-            button.addEventListener('click', function() {
+        document.querySelectorAll('.btn.reject').forEach(button => {
+            button.addEventListener('click', function () {
                 updateStatus(this.dataset.id, 'tu_choi', this);
             });
         });
