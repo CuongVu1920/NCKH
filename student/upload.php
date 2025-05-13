@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $target_dir = "uploads/";
 
         // Kiểm tra loại tệp
-        $allowed_extensions = ['jpg', 'jpeg', 'png', 'pdf', 'docx'];
+        $allowed_extensions = ['jpg', 'jpeg', 'png', 'pdf', 'docx', 'zip', 'rar'];
         $file_extension = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
         if (!in_array($file_extension, $allowed_extensions)) {
             echo "<script>alert('Loại tệp không hợp lệ!'); window.history.back();</script>";
