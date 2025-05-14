@@ -73,10 +73,9 @@ include('connect.php');
                     <?php
                     if (mysqli_num_rows($result) > 0) {
                         while ($row = mysqli_fetch_assoc($result)) {
-                        $ma_chuyennganh = $row['ma_chuyennganh'] ?? '???';
                         $ma_giangvien = $row['ma_so_nguoidung'] ?? '???';
                         $id_detai = str_pad($row['id'], 2, '0', STR_PAD_LEFT);
-                        $ma_detai = "$ma_chuyennganh - $ma_giangvien - $id_detai";
+                        $ma_detai = " $ma_giangvien - $id_detai";
 
                         echo "<tr>";
                         echo "<td>$ma_detai</td>";
