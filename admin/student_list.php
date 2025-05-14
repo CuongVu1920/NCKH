@@ -105,7 +105,7 @@ if (isset($_GET['message']) && $_GET['message']) {
                                     <input type="file" class="form-control" id="excelFile" name="excelFile" accept=".xlsx, .xls" required>
                                 </div>
                                 <div class="mb-3">
-                                    <a href="template/student_template.xlsx" class="btn btn-info">Tải template mẫu</a>
+                                    <a href="template/student_template1.xlsx" class="btn btn-info">Tải template mẫu</a>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>

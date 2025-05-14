@@ -21,36 +21,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $successCount = 0;
     $errorCount = 0;
     $errors = [];
+    $default_password = '123humg'; // Mật khẩu mặc định
+    $default_role = 'sinhvien';   // Vai trò mặc định
 
     foreach ($rows as $row) {
         // Nếu không có mã số SV thì bỏ qua
-        if (empty($row[1]) && empty($row[10])) continue;
+        if (empty($row[1])) continue;
 
         $ma_sv = $row[1];           // Mã SV (B)
         $ho_ten = $row[2];          // Họ và tên (C)
         $email = $row[3];           // Email (D)
-        $mat_khau = $row[4];   // Mật khẩu (E)
-        $ngay_sinh_raw = $row[5];
+        $ngay_sinh_raw = $row[4];   // Ngày sinh (E)
         $ngay_sinh = null;
+        
+        // Xử lý định dạng ngày sinh
         if (preg_match('/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/', $ngay_sinh_raw, $matches)) {
             $ngay_sinh = $matches[3] . '-' . str_pad($matches[2], 2, '0', STR_PAD_LEFT) . '-' . str_pad($matches[1], 2, '0', STR_PAD_LEFT);
         } else {
             $ngay_sinh = $ngay_sinh_raw; // Nếu không đúng định dạng thì giữ nguyên
-        }       // Ngày sinh (F)
-        $gioi_tinh = $row[6];       // Giới tính (G)
-        $so_dien_thoai = $row[7];   // Số điện thoại (H)
-        $dia_chi = $row[8];         // Địa chỉ (I)
-        $vai_tro_raw = $row[9];      // Vai trò (J)
-        if (trim($vai_tro_raw) === 'Sinh Viên') {
-            $vaitro = 'sinhvien';
-        } elseif (trim($vai_tro_raw) === 'Giảng Viên') {
-            $vaitro = 'giangvien';
-        } else {
-            $errorCount++;
-            $errors[] = "Dòng dữ liệu có vai trò không hợp lệ: '$vai_tro_raw' (chỉ chấp nhận 'Sinh Viên' hoặc 'Giảng Viên').";
-            continue;
         }
-        $chuyen_nganh = $row[10];   // Chuyên ngành (K)
+        
+        $gioi_tinh = $row[5];       // Giới tính (F)
+        $so_dien_thoai = $row[6];   // Số điện thoại (G)
+        $dia_chi = $row[7];         // Địa chỉ (H)
+        $chuyen_nganh = $row[8];    // Chuyên ngành (I)
+
         // Kiểm tra mã số sinh viên đã tồn tại chưa
         $check_sql = "SELECT id FROM nguoidung WHERE ma_so_nguoidung = ?";
         $check_stmt = $conn->prepare($check_sql);
@@ -79,12 +74,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             continue;
         }
 
-        // Insert sinh viên hoặc giảng viên mới
+        // Insert sinh viên với mật khẩu và vai trò mặc định
         $sql = "INSERT INTO nguoidung (ma_so_nguoidung, ho_ten, email, matkhau, so_dien_thoai, ngay_sinh, gioi_tinh, dia_chi, id_chuyennganh, vaitro) 
                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param("ssssssssss", $ma_sv, $ho_ten, $email, $mat_khau, $so_dien_thoai, $ngay_sinh, $gioi_tinh, $dia_chi, $id_chuyennganh, $vaitro);
+        $stmt->bind_param("ssssssssss", $ma_sv, $ho_ten, $email, $default_password, $so_dien_thoai, $ngay_sinh, $gioi_tinh, $dia_chi, $id_chuyennganh, $default_role);
 
         if ($stmt->execute()) {
             $successCount++;
@@ -107,4 +102,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     header("Location: admin_dashboard.php?page_layout=student_list");
     exit();
 }
-?> 
