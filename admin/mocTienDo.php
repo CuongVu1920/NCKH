@@ -5,7 +5,7 @@ $student_id = intval($_GET['id']); // Lấy ID sinh viên từ URL
 
 $sql_topic = "SELECT ten_do_an, id FROM doan WHERE id_sinhvien = ?";
 $stmt = $conn->prepare($sql_topic);
-$stmt->bind_param("i", $student_id);  // "i" means integer type
+$stmt->bind_param("i", $student_id);  
 $stmt->execute();
 $result_topic = $stmt->get_result();
 $topic = $result_topic->fetch_array();
