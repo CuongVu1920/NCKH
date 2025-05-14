@@ -4,26 +4,34 @@ include('connect.php');
     // Truy vấn danh sách đề tài từ cơ sở dữ liệu
     $id_giangvien = $_SESSION['nguoidung']['id']; // Lấy ID giảng viên từ session
 
-    // Chỉ lấy danh sách đề tài của giảng viên hiện tại
-    $sql = "SELECT * FROM detai_giangvien WHERE id_giangvien = '$id_giangvien'";
+    // Lấy tổng số đề tài
+    $sql = "SELECT dg.*, nd.ma_so_nguoidung, cn.ma_chuyennganh
+        FROM detai_giangvien dg
+        JOIN nguoidung nd ON dg.id_giangvien = nd.id
+        LEFT JOIN chuyennganh cn ON nd.id_chuyennganh = cn.id
+        WHERE dg.id_giangvien = '$id_giangvien'";
     $result = mysqli_query($conn, $sql);
 
     // phân trang 
-$result_per_page = 7;
+    $result_per_page = 7;
 
-$number_of_result = mysqli_num_rows($result);
-$number_of_page = ceil($number_of_result/$result_per_page);
-$page = isset($_GET['idpage']) ? (int)$_GET['idpage'] : 1;
-if ($page < 1) {
-$page = 1; // Đảm bảo page không nhỏ hơn 1
-}
-$this_page_first_result = ($page-1)*$result_per_page;
+    $number_of_result = mysqli_num_rows($result);
+    $number_of_page = ceil($number_of_result/$result_per_page);
+    $page = isset($_GET['idpage']) ? (int)$_GET['idpage'] : 1;
+    if ($page < 1) {
+    $page = 1; // Đảm bảo page không nhỏ hơn 1
+    }
 
-$sql = "SELECT * FROM detai_giangvien 
-        WHERE id_giangvien = '$id_giangvien' 
-        LIMIT $this_page_first_result, $result_per_page";
+    $this_page_first_result = ($page-1)*$result_per_page;
 
-$result = mysqli_query($conn, $sql);
+    // Truy vấn lại với LIMIT
+    $sql = "SELECT dg.*, nd.ma_so_nguoidung, cn.ma_chuyennganh
+            FROM detai_giangvien dg
+            JOIN nguoidung nd ON dg.id_giangvien = nd.id
+            LEFT JOIN chuyennganh cn ON nd.id_chuyennganh = cn.id
+            WHERE dg.id_giangvien = '$id_giangvien'
+            LIMIT $this_page_first_result, $result_per_page";
+    $result = mysqli_query($conn, $sql);
 
 ?>
 
@@ -65,16 +73,21 @@ $result = mysqli_query($conn, $sql);
                     <?php
                     if (mysqli_num_rows($result) > 0) {
                         while ($row = mysqli_fetch_assoc($result)) {
-                            echo "<tr>";
-                            echo "<td>DT" . str_pad($row['id'], 3, '0', STR_PAD_LEFT) . "</td>";
-                            echo "<td>" . $row['ten_de_tai'] . "</td>";
-                            echo "<td>" . $row['mo_ta'] . "</td>";
-                            echo "<td>" . ($row['trang_thai'] == 'con_trong' ? 'Còn trống' : 'Đã chọn') . "</td>";
-                            echo "<td>
-                                    <a href='edit_topic.php?id=" . $row['id'] . "' class='btn edit'>Chỉnh sửa</a>
-                                    <a href='delete_topic.php?id=" . $row['id'] . "' class='btn delete' onclick='return confirm(\"Bạn có chắc muốn xóa không?\")'>Xóa</a>
-                                  </td>";
-                            echo "</tr>";
+                        $ma_chuyennganh = $row['ma_chuyennganh'] ?? '???';
+                        $ma_giangvien = $row['ma_so_nguoidung'] ?? '???';
+                        $id_detai = str_pad($row['id'], 2, '0', STR_PAD_LEFT);
+                        $ma_detai = "$ma_chuyennganh - $ma_giangvien - $id_detai";
+
+                        echo "<tr>";
+                        echo "<td>$ma_detai</td>";
+                        echo "<td>" . $row['ten_de_tai'] . "</td>";
+                        echo "<td>" . $row['mo_ta'] . "</td>";
+                        echo "<td>" . ($row['trang_thai'] == 'con_trong' ? 'Còn trống' : 'Đã chọn') . "</td>";
+                        echo "<td>
+                                <a href='edit_topic.php?id=" . $row['id'] . "' class='btn edit'>Chỉnh sửa</a>
+                                <a href='delete_topic.php?id=" . $row['id'] . "' class='btn delete' onclick='return confirm(\"Bạn có chắc muốn xóa không?\")'>Xóa</a>
+                              </td>";
+                        echo "</tr>";
                         }
                     } else {
                         echo "<tr><td colspan='5' style='text-align: center;'>Không có đề tài nào.</td></tr>";
@@ -87,15 +100,15 @@ $result = mysqli_query($conn, $sql);
 
          
     <?php
-// Đảm bảo biến $current_page và $number_of_page không bị lỗi
-$current_page = isset($_GET['idpage']) ? (int)$_GET['idpage'] : 1;
-if ($current_page < 1) {
-    $current_page = 1;
-}
-if ($current_page > $number_of_page) {
-    $current_page = $number_of_page;
-}
-?>
+    // Đảm bảo biến $current_page và $number_of_page không bị lỗi
+    $current_page = isset($_GET['idpage']) ? (int)$_GET['idpage'] : 1;
+    if ($current_page < 1) {
+        $current_page = 1;
+    }
+    if ($current_page > $number_of_page) {
+        $current_page = $number_of_page;
+    }
+    ?>
 
  <nav>
     <ul class="pagination justify-content-center">
