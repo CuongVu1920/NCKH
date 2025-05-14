@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $successCount = 0;
     $errorCount = 0;
     $errors = [];
-    $default_password = '123humg'; // Mật khẩu mặc định
+    $default_password = '123'; // Mật khẩu mặc định
     $default_role = 'sinhvien';   // Vai trò mặc định
 
     foreach ($rows as $row) {
@@ -102,3 +102,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     header("Location: admin_dashboard.php?page_layout=student_list");
     exit();
 }
+
