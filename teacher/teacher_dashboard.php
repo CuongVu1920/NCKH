@@ -47,6 +47,8 @@ function isActive($name)
                 <li class="menu-item"><a href="teacher_dashboard.php?page_layout=topic"
                         class="menu-link <?= isActive('topic') ?>"><i class="bi bi-journal-text "></i> Danh sách đề
                         tài</a></li>
+                <li class="menu-item" style="display: none;"><a href="teacher_dashboard.php?page_layout=updateTopic"
+                        class="menu-link"><i class="bi bi-journal-text "></i> </a></li>
                 <li class="menu-item"><a href="../admin/admin_dashboard.php?page_layout=logout" class="menu-link"><i
                             class="bi bi-box-arrow-right"></i> Đăng xuất</a></li>
             </ul>
@@ -97,6 +99,9 @@ function isActive($name)
                         break;
                     case "chamDiem":
                         include('chamDiem.php');
+                        break;
+                    case "updateTopic":
+                        include('edit_topic.php');
                         break;
                     case "logout":
                         session_destroy();

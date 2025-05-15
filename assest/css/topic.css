@@ -7,7 +7,7 @@
 }
 
 .container {
-    width: 1320px;
+    width: 1420px;
     max-width: calc(100% - 48px);
     margin-left: auto;
     margin-right: auto;
@@ -118,6 +118,12 @@
     text-align: left;
 }
 
+.detai-table td {
+    max-width: 300px;         /* Giới hạn chiều rộng */
+    word-wrap: break-word;    /* Ngắt từ khi quá dài */
+    white-space: normal;      /* Cho phép xuống dòng */
+}
+
 .detai-table th {
     text-transform: uppercase;
 }
@@ -131,6 +137,11 @@
     cursor: pointer;
 }
 
+.btn-container {
+    display: flex;
+    justify-content: center;
+}
+
 .edit {
     background-color: #4a90e2;
     color: white;
@@ -142,9 +153,55 @@
     margin-left: 5px;
 }
 
+.btn-edit {
+    height: 40px;
+     white-space: nowrap;  
+}
+
+.btn-delete {
+     height: 40px;
+      white-space: nowrap;  
+}
+
 .btn:hover {
     opacity: 0.8;
 }
+
+.detai-table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed; /* Giữ cố định độ rộng cột */
+}
+
+.detai-table th, .detai-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    vertical-align: top;
+}
+
+/* Cố định độ rộng cột Mô Tả */
+.detai-table td:nth-child(3) {
+    max-width: 300px;
+    word-wrap: break-word;
+    /* Không dùng white-space: nowrap ở đây */
+    position: relative; /* để liên quan tới toggle link */
+}
+
+.toggle-link {
+    color: blue;
+    cursor: pointer;
+    margin-left: 5px;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: underline;
+    user-select: none;
+}
+
+.toggle-link:hover {
+    color: darkblue;
+    text-decoration: none;
+}
+
 
 /* Responsive */
 @media screen and (max-width: 768px) {

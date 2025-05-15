@@ -22,14 +22,20 @@ if (isset($_GET['id'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <title>Sửa Đề Tài</title>
+      <link
+      rel="Website icon"
+      type="png"
+      href="../assest/img/Logo_Truong_Dai_hoc_Mo_-_Dia_chat.jpg"/>
     <!-- Reset CSS -->
     <link rel="stylesheet" href="../assests/css/reset.css">
 
     <!-- Style CSS -->
-    <link rel="stylesheet" href="../assest/css/add_topic.css?v=<?php echo time(); ?>">
+    <link rel="stylesheet" href="../assest/css/add_topic_old.css?v=<?php echo time(); ?>">
 </head>
 <body>
+    <?php include("teacher_dashboard.php"); ?>
     <div class="container">
         <!-- Sidebar -->
 
@@ -52,8 +58,9 @@ if (isset($_GET['id'])) {
                     <option value="con_trong" <?php echo ($row['trang_thai'] == 'con_trong') ? 'selected' : ''; ?>>Còn trống</option>
                     <option value="da_chon" <?php echo ($row['trang_thai'] == 'da_chon') ? 'selected' : ''; ?>>Đã chọn</option>
                 </select>
-
-                <button type="submit" class="btn submit">Cập Nhật</button>
+                <div class="btn_submit">
+                    <button type="submit" class="btn submit">Cập Nhật</button>
+                </div>
             </form>
         </div>
     </div>

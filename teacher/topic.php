@@ -82,9 +82,9 @@ include('connect.php');
                         echo "<td>" . $row['ten_de_tai'] . "</td>";
                         echo "<td>" . $row['mo_ta'] . "</td>";
                         echo "<td>" . ($row['trang_thai'] == 'con_trong' ? 'Còn trống' : 'Đã chọn') . "</td>";
-                        echo "<td>
-                                <a href='edit_topic.php?id=" . $row['id'] . "' class='btn edit'>Chỉnh sửa</a>
-                                <a href='delete_topic.php?id=" . $row['id'] . "' class='btn delete' onclick='return confirm(\"Bạn có chắc muốn xóa không?\")'>Xóa</a>
+                        echo "<td class='btn-container'>
+                                <a href='edit_topic.php?id=" . $row['id'] . "' class='btn edit btn-edit'>Chỉnh sửa</a>
+                                <a href='delete_topic.php?id=" . $row['id'] . "' class='btn delete btn-delete' onclick='return confirm(\"Bạn có chắc muốn xóa không?\")'>Xóa</a>
                               </td>";
                         echo "</tr>";
                         }
@@ -138,6 +138,48 @@ include('connect.php');
 </nav> 
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const maxLength = 15;
+    const moTaCells = document.querySelectorAll(".detai-table td:nth-child(3)");
+
+    moTaCells.forEach(function (cell) {
+        const fullText = cell.textContent.trim();
+
+        if (fullText.length > maxLength) {
+            const shortText = fullText.slice(0, maxLength) + "...";
+            cell.innerHTML = `
+                <span class="short-text">${shortText}</span>
+                <span class="full-text" style="display:none;">${fullText}</span>
+                <a href="#" class="toggle-link">Xem thêm</a>
+            `;
+        }
+    });
+
+    document.addEventListener("click", function (e) {
+        if (e.target.classList.contains("toggle-link")) {
+            e.preventDefault();
+            const cell = e.target.closest("td");
+            const shortText = cell.querySelector(".short-text");
+            const fullText = cell.querySelector(".full-text");
+
+            const isCollapsed = fullText.style.display === "none";
+
+            if (isCollapsed) {
+                shortText.style.display = "none";
+                fullText.style.display = "inline";
+                e.target.textContent = "Thu gọn";
+            } else {
+                shortText.style.display = "inline";
+                fullText.style.display = "none";
+                e.target.textContent = "Xem thêm";
+            }
+        }
+    });
+});
+</script>
+
 </body>
 </html>
 
